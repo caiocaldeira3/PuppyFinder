@@ -1,9 +1,9 @@
 Grupo:
 
-Nome: Caio Alves Caldeira      |  Matrícula: 2017068734
-Nome: Gustavo Dias de Oliveira | Matrícula: 2018054915
-Nome: Roberto Gomes Rosmaninho Neto | Matrícula: 2018054940
-Nome: Paulo Henrique Maciel Fraga | Matrícula: 2018054451
+Nome: Caio Alves Caldeira            | Matrícula: 2017068734  
+Nome: Gustavo Dias de Oliveira       | Matrícula: 2018054915  
+Nome: Roberto Gomes Rosmaninho Neto  | Matrícula: 2018054940  
+Nome: Paulo Henrique Maciel Fraga    | Matrícula: 2018054451  
 
 Tema: Adoção de Animais
 
