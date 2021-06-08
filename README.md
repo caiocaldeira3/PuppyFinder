@@ -97,5 +97,6 @@ Backlog da Sprint:
 * Criar um ambiente de Testes inicial [Roberto Rosmaninho]
   - Criar Testes unitários;
   - Integrar testes com GitHub Actions.
+  - Criar workflow para permitir a integração de um pull request apenas se os testes passarem corretamente.
 
 
