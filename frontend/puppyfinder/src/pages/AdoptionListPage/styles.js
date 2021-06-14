@@ -18,6 +18,9 @@ const useStyles = makeStyles(() => ({
   locationIcon: {
     fontSize: 18,
   },
+  modalContainer: {
+    backgroundColor: 'white',
+  },
 }));
 
 export default useStyles;
