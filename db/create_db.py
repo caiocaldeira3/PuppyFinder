@@ -9,7 +9,8 @@ c.execute('''CREATE TABLE IF NOT EXISTS pessoa (
               nome text,
               telefone text,
               email text,
-              foto text)''') #FOTO
+              foto text,
+              senha_hash text)''') #FOTO
 
 c.execute('''CREATE TABLE IF NOT EXISTS organizacao (
               id integer PRIMARY KEY,
@@ -23,7 +24,8 @@ c.execute('''CREATE TABLE IF NOT EXISTS organizacao (
               descricao text,
               representante text,
               doacoes text,
-              foto text)''') #FOTO
+              foto text,
+              senha_hash text)''') #FOTO
 
 c.execute('''CREATE TABLE IF NOT EXISTS animal (
               id integer PRIMARY KEY,
