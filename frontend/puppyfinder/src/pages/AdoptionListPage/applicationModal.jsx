@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Modal,
   Container,
+  Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
@@ -14,7 +15,7 @@ const ApplicationModal = ({ visible, onCloseModal }) => {
     <Modal open={visible} onClose={onCloseModal}>
       <Container maxWidth="md" className={classes.modalContainer}>
         <div>
-          <h1>Formulaŕio de Adoção</h1>
+          <Typography>Formulaŕio de Adoção</Typography>
         </div>
       </Container>
     </Modal>

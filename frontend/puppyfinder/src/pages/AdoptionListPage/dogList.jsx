@@ -56,7 +56,7 @@ const DogList = () => {
                       {item.localizacao}
                     </Typography>
                   </div>
-                  <Typography>
+                  <Typography variant="subtitle2">
                     {item.descricao}
                   </Typography>
                 </CardContent>

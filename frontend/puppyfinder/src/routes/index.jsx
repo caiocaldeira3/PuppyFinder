@@ -5,14 +5,16 @@ import {
   Route,
 } from 'react-router-dom';
 
+import LoginPage from '../pages/LoginPage';
 import AdoptionListPage from '../pages/AdoptionListPage';
-import MenuBar from '../layout/MenuBar';
+import OrgAdministrationPage from '../pages/OrgAdministrationPage';
 
 const Routes = () => (
   <Router>
-    <MenuBar />
     <Switch>
       <Route path="/" exact component={AdoptionListPage} />
+      <Route path="/org-admin/:org" component={OrgAdministrationPage} />
+      <Route path="/login" component={LoginPage} />
     </Switch>
   </Router>
 );
