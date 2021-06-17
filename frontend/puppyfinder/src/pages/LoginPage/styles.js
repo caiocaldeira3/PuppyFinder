@@ -21,9 +21,6 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     fontWeight: 'bold',
   },
-  avatar: {
-    backgroundColor: 'white',
-  },
   submit: {
     backgroundColor: 'green',
     marginTop: '8%',
@@ -41,6 +38,9 @@ const useStyles = makeStyles(() => ({
     padding: '15%',
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
+  },
+  haveAccountButton: {
+    marginTop: '7%',
   },
 }));
 

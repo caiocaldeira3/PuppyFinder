@@ -12,9 +12,9 @@ import OrgAdministrationPage from '../pages/OrgAdministrationPage';
 const Routes = () => (
   <Router>
     <Switch>
-      <Route path="/" exact component={AdoptionListPage} />
+      <Route path="/" exact component={LoginPage} />
       <Route path="/org-admin/:org" component={OrgAdministrationPage} />
-      <Route path="/login" component={LoginPage} />
+      <Route path="/adoption-list" component={AdoptionListPage} />
     </Switch>
   </Router>
 );

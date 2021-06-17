@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Grid,
-  Typography,
-  TextField,
   Button,
-  Link,
+  Typography,
 } from '@material-ui/core';
+
+import Login from './login';
+import Signin from './signin';
 
 import useStyles from './styles';
 
 const LoginPage = () => {
+  const [alreadyHaveAccount, setAlreadyHaveAccount] = useState(false);
+
   const classes = useStyles();
+
+  const onClickAlreadyHaveAccountButton = () => {
+    setAlreadyHaveAccount(!alreadyHaveAccount);
+  };
 
   return (
     <Grid
@@ -31,53 +38,18 @@ const LoginPage = () => {
       >
         <div className={classes.paper}>
           <Typography component="h1" variant="h2" gutterBottom className={classes.loginText}>
-            Cadastre-se
+            { alreadyHaveAccount ? 'Entrar' : 'Cadastre-se'}
           </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Endereço de email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              className={classes.input}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Senha"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              className={classes.input}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Cadastrar
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="www.google.com" variant="body2">
-                  Esqueceu a senha
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="www.google.com" variant="body2" />
-              </Grid>
-            </Grid>
-          </form>
+          { alreadyHaveAccount
+            ? <Login />
+            : <Signin />}
+          <Button
+            onClick={onClickAlreadyHaveAccountButton}
+            variant="outlined"
+            className={classes.haveAccountButton}
+          >
+            { alreadyHaveAccount ? 'Não possui uma conta?' : 'Já sou cadastrado'}
+          </Button>
         </div>
       </Grid>
     </Grid>
