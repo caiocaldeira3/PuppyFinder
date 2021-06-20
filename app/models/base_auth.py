@@ -1,8 +1,5 @@
-import dataclasses as dc
-
 from app import db
 
-@dc.dataclass()
 class BaseAuth(db.Model):
 
     __abstract__    : bool = True

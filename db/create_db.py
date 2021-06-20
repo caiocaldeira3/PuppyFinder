@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('puppyFinder.db')  
+conn = sqlite3.connect("puppyFinder.db")
 c = conn.cursor()
 
 # Create table
@@ -10,7 +10,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS pessoa (
               telefone text,
               email text,
               foto text,
-              senha_hash text)''') #FOTO
+              senha_hash text)''')  # FOTO
 
 c.execute('''CREATE TABLE IF NOT EXISTS organizacao (
               id integer PRIMARY KEY,
@@ -25,7 +25,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS organizacao (
               representante text,
               doacoes text,
               foto text,
-              senha_hash text)''') #FOTO
+              senha_hash text)''')  # FOTO
 
 c.execute('''CREATE TABLE IF NOT EXISTS animal (
               id integer PRIMARY KEY,
@@ -41,7 +41,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS animal (
               representante text,
               doacoes text,
               foto text,
-              FOREIGN KEY (id_org) REFERENCES organizacao (id))''') # FOTO
+              FOREIGN KEY (id_org) REFERENCES organizacao (id))''')  # FOTO
 
 c.execute('''CREATE TABLE IF NOT EXISTS interesse (
               id_pessoa integer NOT NULL,
@@ -51,7 +51,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS interesse (
               status text,
               FOREIGN KEY (id_pessoa) REFERENCES pessoa (id),
               FOREIGN KEY (id_animal) REFERENCES animal (id),
-              PRIMARY KEY (id_pessoa, id_animal))''') # FOTO
+              PRIMARY KEY (id_pessoa, id_animal))''')  # FOTO
 
 
 conn.commit()
