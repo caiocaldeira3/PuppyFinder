@@ -42,6 +42,15 @@ const useStyles = makeStyles(() => ({
   haveAccountButton: {
     marginTop: '7%',
   },
+  radioDiv: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  radioLabel: {
+    color: 'white',
+    marginLeft: 10,
+  },
 }));
 
 export default useStyles;

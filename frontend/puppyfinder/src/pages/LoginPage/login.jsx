@@ -50,7 +50,7 @@ const Login = () => {
         <Grid container>
           <Grid item xs>
             <Link href="www.google.com" variant="body2">
-              Esqueceu a senha
+              Esqueceu a senha?
             </Link>
           </Grid>
         </Grid>
