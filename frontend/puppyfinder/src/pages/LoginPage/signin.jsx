@@ -3,10 +3,11 @@ import {
   TextField,
   Button,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 import useStyles from './styles';
 
-const Signin = () => {
+const Signin = ({ type }) => {
   const classes = useStyles();
 
   return (
@@ -60,18 +61,56 @@ const Signin = () => {
           autoFocus
           className={classes.input}
         />
+        { type === 'org'
+          ? (
+            <>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="representant"
+                placeholder="Nome do Representante"
+                type="representant"
+                id="representant"
+                autoComplete="current-password"
+                className={classes.input}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="address"
+                placeholder="Endereço Físico"
+                name="address"
+                autoComplete="address"
+                autoFocus
+                className={classes.input}
+              />
+            </>
+          ) : null}
         <Button
           type="submit"
           fullWidth
           variant="contained"
           color="primary"
           className={classes.submit}
+          // onClick={onClickSignIn}
         >
           CADASTRAR
         </Button>
       </form>
     </>
   );
+};
+
+Signin.propTypes = {
+  type: PropTypes.string,
+};
+
+Signin.defaultProps = {
+  type: '',
 };
 
 export default Signin;

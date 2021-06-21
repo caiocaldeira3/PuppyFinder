@@ -50,6 +50,7 @@ const useStyles = makeStyles(() => ({
   radioLabel: {
     color: 'white',
     marginLeft: 10,
+    fontWeight: 'bold',
   },
 }));
 

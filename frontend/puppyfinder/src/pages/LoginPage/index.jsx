@@ -34,7 +34,7 @@ const LoginPage = () => {
   const getRadioLabel = (text, Icon) => (
     <div className={classes.radioDiv}>
       <Icon />
-      <Typography component="h5" variant="s2" className={classes.radioLabel}>
+      <Typography component="h5" variant="subtitle2" className={classes.radioLabel}>
         {text}
       </Typography>
     </div>
