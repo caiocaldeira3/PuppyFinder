@@ -1,16 +1,16 @@
+from app import db
 from app.models.base_auth import BaseAuth
 
 # Define a User model
-class User(BaseAuth):
+class User (BaseAuth):
 
     __tablename__   : str = "auth_user"
 
-    access          : int
+    access          : db.Integer = db.Column(db.Integer, default=0, nullable=False)
 
-    def __init__ (self, name: str, email: str, password: str, access: int = 0) -> None:
-        super().__init__(name, email)
-
-        self.access = access
+    # Extra Information
+    telephone       : db.String = db.Column(db.String(15), nullable=True)
+    description     : db.Text = db.Column(db.Text(500), nullable=True)
 
     def __repr__ (self) -> str:
         return f"<User > {self.name}"

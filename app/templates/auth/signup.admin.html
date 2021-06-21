@@ -13,7 +13,7 @@
 
 <div>
   <div>
-    <legend>Login Administrador</legend>
+    <legend>Cadastro Administrador</legend>
     {% with errors = get_flashed_messages(category_filter=["error"]) %}
     {% if errors %}
     <div>
@@ -35,9 +35,11 @@
     {% endif %}
     <form method="POST" action="." accept-charset="UTF-8" role="form">
       {{ form.csrf_token }}
-      {{ render_field(form.email, placeholder="Endereço de E-mail",
-                                  autofocus="") }}
-      {{ render_field(form.password, placeholder="Senha") }}
+      {{ render_field(form.email, placeholder="Endereço de E-mail*", autofocus="") }}
+      {{ render_field(form.name, placeholder="Nome*") }}
+      {{ render_field(form.password, placeholder="Senha*") }}
+      {{ render_field(form.telephone, placeholder="Telefone") }}
+      {{ render_field(form.description, placeholder="Descrição") }}
       <div>
       <label>
         <input type="checkbox" name="remember" value="1"> Lembre de Mim
