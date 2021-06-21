@@ -29,7 +29,7 @@ Tecnologias:
 * Trello
 
 Backend:
-* Python (Flarks)
+* Python (Flask, SQLAlchemy, WTForms)
 
 Frontend:
 * ReactJS
