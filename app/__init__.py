@@ -26,10 +26,12 @@ def not_found (error: Exception) -> str:
 # Import a module / component using its blueprint handler variable (mod_auth)
 
 from app.modules.auth.controllers import mod_auth as auth_module
+from app.modules.org.controllers import mod_org as org_module
 
 
 # Register blueprint(s)
 app.register_blueprint(auth_module)
+app.register_blueprint(org_module)
 # app.register_blueprint(xyz_module)
 # ..
 

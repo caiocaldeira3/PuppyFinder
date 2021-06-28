@@ -64,7 +64,7 @@ def signin_org () -> str:
             session["org_id"] = org.id
             flash(f"Bem Vindo {org.name}")
 
-            return redirect(url_for("auth.home"))
+            return redirect(url_for("org.home", org_id=org.id))
 
         else:
             flash("Usuário ou senha inválidos", "error")
