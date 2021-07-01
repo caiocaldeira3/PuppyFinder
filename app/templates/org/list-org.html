@@ -1,1 +1,47 @@
-Teste
+{% block content %}
+	<div class="container">
+		<table class="table">
+			<thead class="thead-dark">
+				<th scope="col">ID</th>
+				<th scope="col">Nome</th>
+				<th scope="col">E-mail</th>
+				<th scope="col">Password</th>
+				<th scope="col">Telephone</th>
+				<th scope="col">Website</th>
+				<th scope="col">donation_url</th>
+				<th scope="col">date_created</th>
+				<th scope="col">date_modified</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</thead>
+			<tbody>
+				{% for org in all_org: %}
+				<tr>
+					<td>{{ org.id }}</td>
+					<td>{{ org.name }}</td>
+					<td>{{ org.email }}</td>
+					<!--<td>{{ org.password }}</td>-->
+					<td>{{ org.telephone }}</td>
+					<td>{{ org.website }}</td>
+					<td>{{ org.donation_url }}</td>
+					<td>{{ org.description }}</td>
+					<td>{{ org.date_created }}</td>
+					<td>{{ org.date_modified}}</td>
+					<td>
+						<button>
+							<a>Editar (TODO)</a>
+						</button>
+					<td>
+					<td>
+						<button>
+							<a>Excluir (TODO)</a>
+						</button>
+					<td>
+
+				</tr>
+				{%endfor%}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

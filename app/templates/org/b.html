@@ -1,0 +1,48 @@
+{% block content %}
+	<div class="container">
+		<table class="table">
+			<thead class="thead-dark">
+				<th scope="col">ID</th>
+				<th scope="col">Nome</th>
+				<th scope="col">Idade</th>
+				<th scope="col">Sexo</th>
+				<th scope="col">Pelo</th>
+				<th scope="col">Tamanho</th>
+				<th scope="col">Castrado</th>
+				<th scope="col">Vacinado</th>
+				<th scope="col">Vermifugado</th>
+				<th scope="col">Descrição</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</thead>
+			<tbody>
+				{% for animal in all_animal: %}
+				<tr>
+					<td>{{ animal.id }}</td>
+					<td>{{ animal.name }}</td>
+					<td>{{ animal.age }}</td>
+					<td>{{ animal.sex.name }}</td>
+					<td>{{ animal.fur }}</td>
+					<td>{{ animal.size.name }}</td>
+					<td>{{ animal.neutered }}</td>
+					<td>{{ animal.vaccinated }}</td>
+					<td>{{ animal.dewormed}}</td>
+					<td>{{ animal.desc}}</td>
+					<td>
+						<button>
+							<a>Editar (TODO)</a>
+						</button>
+					<td>
+					<td>
+						<button>
+							<a>Excluir (TODO)</a>
+						</button>
+					<td>
+
+				</tr>
+				{%endfor%}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
