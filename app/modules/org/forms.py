@@ -6,7 +6,9 @@ class RegisterAnimalForm (FlaskForm):
     name        = TextField(
         "Nome", [Required(message="É obrigatório fornecer seu nome")]
     )
-    age         = IntegerField("Idade")
+    age         = IntegerField(
+        "Idade", [Required(message="Insira a idade em meses")]
+    )
     sex         = SelectField(
         "Sexo",
         choices=[],
