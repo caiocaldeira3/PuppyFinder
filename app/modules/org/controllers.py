@@ -109,7 +109,7 @@ def update_animal (animal_id) -> str:
         form.vaccinated.data = animal.vaccinated # TODO
         form.dewormed.data = animal.dewormed # TODO
 
-    return render_template("org/a.html", form=form, animal_id=animal_id)
+    return render_template("org/update_animal.html", form=form, animal_id=animal_id)
 
 @mod_org.route("/delete_animal/<animal_id>", methods=["GET", "POST"])
 def delete_animal(animal_id):
