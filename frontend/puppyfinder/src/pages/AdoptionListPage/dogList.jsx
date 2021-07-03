@@ -13,6 +13,8 @@ import {
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PostAddSharpIcon from '@material-ui/icons/PostAddSharp';
 
+import MenuBar from '../../layout/MenuBar';
+
 import ApplicationModal from './applicationModal';
 
 import fakeDataAdoptionList from './fakeData';
@@ -36,6 +38,7 @@ const DogList = () => {
   return (
     <>
       <ApplicationModal visible={visible} onCloseModal={onCloseModal} />
+      <MenuBar />
       <Container>
         <Grid container spacing={4}>
           { fakeDataAdoptionList.map((item) => (
