@@ -12,4 +12,3 @@ COPY . .
 RUN pip3 install -r requirements.build.txt
 RUN virtualenv env 
 RUN env/bin/pip3 install -r requirements.txt
-
