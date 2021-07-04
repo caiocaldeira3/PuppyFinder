@@ -49,7 +49,7 @@ const DogList = () => {
       <Container>
         <Grid container spacing={4}>
           { fakeDataAdoptionList.map((item) => (
-            <Grid item key={item} xs={12} sm={6} md={4}>
+            <Grid item key={item.name} xs={12} sm={6} md={4}>
               <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}

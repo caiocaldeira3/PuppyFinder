@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   TextField,
   Button,
@@ -8,7 +8,51 @@ import PropTypes from 'prop-types';
 import useStyles from './styles';
 
 const Signin = ({ type }) => {
+  const [signInForm, setSignInForm] = useState({
+    nome: '',
+    email: '',
+    senha: '',
+    telefone: '',
+    nomeRep: '',
+    endereco: '',
+  });
+
   const classes = useStyles();
+
+  const handleNameChange = (e) => {
+    const newForm = { ...signInForm, nome: e.target.value };
+    setSignInForm(newForm);
+  };
+
+  const handleEmailChange = (e) => {
+    const newForm = { ...signInForm, email: e.target.value };
+    setSignInForm(newForm);
+  };
+
+  const handleSenhaChange = (e) => {
+    const newForm = { ...signInForm, senha: e.target.value };
+    setSignInForm(newForm);
+  };
+
+  const handleTelefoneChange = (e) => {
+    const newForm = { ...signInForm, telefone: e.target.value };
+    setSignInForm(newForm);
+  };
+
+  const handleNomeRepChange = (e) => {
+    const newForm = { ...signInForm, nomeRep: e.target.value };
+    setSignInForm(newForm);
+  };
+
+  const handleEnderecoChange = (e) => {
+    const newForm = { ...signInForm, endereco: e.target.value };
+    setSignInForm(newForm);
+  };
+
+  const onClickSignIn = (e) => {
+    e.preventDefault();
+    console.log(signInForm);
+  };
 
   return (
     <>
@@ -24,6 +68,7 @@ const Signin = ({ type }) => {
           autoComplete="email"
           autoFocus
           className={classes.input}
+          onChange={handleEmailChange}
         />
         <TextField
           variant="outlined"
@@ -36,6 +81,7 @@ const Signin = ({ type }) => {
           autoComplete="username"
           autoFocus
           className={classes.input}
+          onChange={handleNameChange}
         />
         <TextField
           variant="outlined"
@@ -48,6 +94,7 @@ const Signin = ({ type }) => {
           id="password"
           autoComplete="current-password"
           className={classes.input}
+          onChange={handleSenhaChange}
         />
         <TextField
           variant="outlined"
@@ -60,6 +107,7 @@ const Signin = ({ type }) => {
           autoComplete="phone"
           autoFocus
           className={classes.input}
+          onChange={handleTelefoneChange}
         />
         { type === 'org'
           ? (
@@ -75,6 +123,7 @@ const Signin = ({ type }) => {
                 id="representant"
                 autoComplete="current-password"
                 className={classes.input}
+                onChange={handleNomeRepChange}
               />
               <TextField
                 variant="outlined"
@@ -87,6 +136,7 @@ const Signin = ({ type }) => {
                 autoComplete="address"
                 autoFocus
                 className={classes.input}
+                onChange={handleEnderecoChange}
               />
             </>
           ) : null}
@@ -96,7 +146,7 @@ const Signin = ({ type }) => {
           variant="contained"
           color="primary"
           className={classes.submit}
-          // onClick={onClickSignIn}
+          onClick={onClickSignIn}
         >
           CADASTRAR
         </Button>
