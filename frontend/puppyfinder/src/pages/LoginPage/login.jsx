@@ -13,16 +13,16 @@ import useStyles from './styles';
 const Login = ({ type }) => {
   const [loginForm, setLoginForm] = useState({
     email: '',
-    senha: '',
-    type: '',
+    password: '',
   });
 
   const history = useHistory();
   const classes = useStyles();
 
-  const handleLoginClick = () => {
-    const newForm = { ...loginForm, type };
-    setLoginForm(newForm);
+  const handleLoginClick = (e) => {
+    if (type === 'fis') console.log('Pessoa'); else console.log('Organização');
+    e.preventDefault();
+    console.log(loginForm);
     history.push('/adoption-list');
   };
 
@@ -32,7 +32,7 @@ const Login = ({ type }) => {
   };
 
   const handlePasswordChange = (e) => {
-    const newForm = { ...loginForm, senha: e.target.value };
+    const newForm = { ...loginForm, password: e.target.value };
     setLoginForm(newForm);
   };
 

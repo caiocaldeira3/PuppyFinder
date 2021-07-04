@@ -9,18 +9,18 @@ import useStyles from './styles';
 
 const Signin = ({ type }) => {
   const [signInForm, setSignInForm] = useState({
-    nome: '',
+    name: '',
     email: '',
-    senha: '',
-    telefone: '',
-    nomeRep: '',
-    endereco: '',
+    password: '',
+    phone: '',
+    representantName: '',
+    address: '',
   });
 
   const classes = useStyles();
 
   const handleNameChange = (e) => {
-    const newForm = { ...signInForm, nome: e.target.value };
+    const newForm = { ...signInForm, name: e.target.value };
     setSignInForm(newForm);
   };
 
@@ -30,22 +30,22 @@ const Signin = ({ type }) => {
   };
 
   const handleSenhaChange = (e) => {
-    const newForm = { ...signInForm, senha: e.target.value };
+    const newForm = { ...signInForm, password: e.target.value };
     setSignInForm(newForm);
   };
 
   const handleTelefoneChange = (e) => {
-    const newForm = { ...signInForm, telefone: e.target.value };
+    const newForm = { ...signInForm, phone: e.target.value };
     setSignInForm(newForm);
   };
 
   const handleNomeRepChange = (e) => {
-    const newForm = { ...signInForm, nomeRep: e.target.value };
+    const newForm = { ...signInForm, representantName: e.target.value };
     setSignInForm(newForm);
   };
 
   const handleEnderecoChange = (e) => {
-    const newForm = { ...signInForm, endereco: e.target.value };
+    const newForm = { ...signInForm, address: e.target.value };
     setSignInForm(newForm);
   };
 
