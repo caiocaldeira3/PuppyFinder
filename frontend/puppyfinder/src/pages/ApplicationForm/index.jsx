@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {
+  CssBaseline,
+  Paper,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+} from '@material-ui/core';
+
 // import DescriptionIcon from '@material-ui/icons/Description';
 import { useHistory } from 'react-router-dom';
 import About from './About';

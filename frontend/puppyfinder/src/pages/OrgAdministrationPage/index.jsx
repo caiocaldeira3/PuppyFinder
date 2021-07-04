@@ -11,6 +11,8 @@ import {
   TextField,
 } from '@material-ui/core';
 
+import { useHistory } from 'react-router-dom';
+
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import EmailIcon from '@material-ui/icons/Email';
@@ -19,12 +21,15 @@ import HomeIcon from '@material-ui/icons/Home';
 import PhoneIcon from '@material-ui/icons/Phone';
 import PersonIcon from '@material-ui/icons/Person';
 import PetsIcon from '@material-ui/icons/Pets';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import useStyles from './styles';
 import fakeProfileData from './fakeData';
 import MenuBar from '../../layout/MenuBar';
 
 const OrgAdministrationPage = () => {
   const classes = useStyles();
+
+  const history = useHistory();
 
   const nameIconMap = {
     Email: <EmailIcon className={classes.icon} />,
@@ -34,13 +39,30 @@ const OrgAdministrationPage = () => {
     Telefone: <PhoneIcon className={classes.icon} />,
   };
 
+  const handleAddPet = () => {
+    history.push('/add-pet');
+  };
+
   return (
     <>
       <MenuBar pageName="Seu Perfil" showLogo={false} />
       <Container maxWidth="sm" className={classes.menuBarMainContainer} />
       <Container>
-        <Button endIcon={<PetsIcon />}>Cadastrar Animal</Button>
-        <Button endIcon={<PetsIcon />}>Ver Animais</Button>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Button
+            className={classes.button}
+            onClick={handleAddPet}
+            startIcon={<PetsIcon />}
+          >
+            Cadastrar Animal
+          </Button>
+          <Button
+            className={classes.button}
+            startIcon={<FormatListNumberedIcon />}
+          >
+            Ver Animais
+          </Button>
+        </div>
       </Container>
       <Container className={classes.detailsContainer}>
         <Grid container spacing={4}>

@@ -10,6 +10,7 @@ import AdoptionListPage from '../pages/AdoptionListPage';
 import OrgAdministrationPage from '../pages/OrgAdministrationPage';
 import Profile from '../pages/Profile';
 import ApplicationForm from '../pages/ApplicationForm';
+import AddPet from '../pages/AddPet';
 
 const Routes = () => (
   <Router>
@@ -19,6 +20,7 @@ const Routes = () => (
       <Route path="/profile/:prof" component={Profile} />
       <Route path="/adoption-list" component={AdoptionListPage} />
       <Route path="/application-form" component={ApplicationForm} />
+      <Route path="/add-pet" component={AddPet} />
     </Switch>
   </Router>
 );

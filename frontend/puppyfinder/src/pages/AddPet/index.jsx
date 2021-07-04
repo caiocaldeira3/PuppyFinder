@@ -1,28 +1,19 @@
 import React, { useState } from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-// import About from './About';
-// import Reason from './Reason';
+import {
+  CssBaseline,
+  Paper,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+} from '@material-ui/core';
+
+import MenuBar from '../../layout/MenuBar';
 
 import useStyles from './styles';
 
 const steps = ['Sobre você', 'Detalhes'];
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <About />;
-    case 1:
-      return <Reason />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
 
 const ApplicationForm = () => {
   const classes = useStyles();
@@ -40,6 +31,7 @@ const ApplicationForm = () => {
   return (
     <>
       <CssBaseline />
+      <MenuBar pageName="Adicionar Pet" />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -64,7 +56,7 @@ const ApplicationForm = () => {
               </>
             ) : (
               <>
-                {getStepContent(activeStep)}
+                {/* {getStepContent(activeStep)} */}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
