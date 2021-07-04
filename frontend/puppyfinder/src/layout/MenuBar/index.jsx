@@ -1,22 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  AppBar,
   Container,
+  Toolbar,
   Typography,
 } from '@material-ui/core';
 
-function MenuBar() {
+import PropTypes from 'prop-types';
+import MenuIcon from '@material-ui/icons/Menu';
+
+import MenuDrawer from './menuDrawer';
+
+import useStyles from './styles';
+
+const MenuBar = ({ pageName, showLogo }) => {
+  const [open, setOpen] = useState(false);
+
+  const classes = useStyles();
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <Container maxWidth="sm">
-      <Container>
-        <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-          Puppy Finder
-        </Typography>
-        <Typography variant="h5" align="center" color="textSecondary" paragraph>
-          Essa é a barra de Menu
-        </Typography>
-      </Container>
-    </Container>
+    <>
+      <AppBar position="absolute" className={classes.appBar}>
+        <Toolbar>
+          <div>
+            <MenuIcon className={classes.icon} onClick={handleDrawerOpen} />
+          </div>
+          <div style={{ display: 'flex', marginLeft: 30 }}>
+            <Typography variant="h6" color="inherit" noWrap>
+              {pageName}
+            </Typography>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <MenuDrawer handleDrawerClose={handleDrawerClose} open={open} />
+      { showLogo && (
+        <div>
+          <Container maxWidth="sm" className={classes.menuBarMainContainer} />
+        </div>
+
+      )}
+    </>
   );
-}
+};
+
+MenuBar.propTypes = {
+  pageName: PropTypes.string,
+  showLogo: PropTypes.bool,
+};
+
+MenuBar.defaultProps = {
+  pageName: 'Pagina',
+  showLogo: true,
+};
 
 export default MenuBar;
