@@ -8,6 +8,7 @@ import {
 import LoginPage from '../pages/LoginPage';
 import AdoptionListPage from '../pages/AdoptionListPage';
 import OrgAdministrationPage from '../pages/OrgAdministrationPage';
+import Profile from '../pages/Profile';
 import ApplicationForm from '../pages/ApplicationForm';
 
 const Routes = () => (
@@ -15,6 +16,7 @@ const Routes = () => (
     <Switch>
       <Route path="/" exact component={LoginPage} />
       <Route path="/org-admin/:org" component={OrgAdministrationPage} />
+      <Route path="/profile/:prof" component={Profile} />
       <Route path="/adoption-list" component={AdoptionListPage} />
       <Route path="/application-form" component={ApplicationForm} />
     </Switch>

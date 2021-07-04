@@ -10,8 +10,12 @@ import {
   Button,
 } from '@material-ui/core';
 
+import { useHistory } from 'react-router-dom';
+
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PostAddSharpIcon from '@material-ui/icons/PostAddSharp';
+
+import ListAltIcon from '@material-ui/icons/ListAlt';
 
 import MenuBar from '../../layout/MenuBar';
 
@@ -28,9 +32,10 @@ const DogList = () => {
   const [visible, setVisible] = useState(false);
 
   const classes = useStyles();
+  const history = useHistory();
 
   const onClickSendApplication = () => {
-    setVisible(true);
+    history.push('/application-form');
   };
 
   const onCloseModal = () => {
@@ -40,7 +45,7 @@ const DogList = () => {
   return (
     <>
       <ApplicationModal visible={visible} onCloseModal={onCloseModal} />
-      <MenuBar />
+      <MenuBar pageName="Lista de Pets" Icon={ListAltIcon} />
       <Container>
         <Grid container spacing={4}>
           { fakeDataAdoptionList.map((item) => (

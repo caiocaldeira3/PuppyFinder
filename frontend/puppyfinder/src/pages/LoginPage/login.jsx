@@ -6,10 +6,17 @@ import {
   Button,
 } from '@material-ui/core';
 
+import { useHistory } from 'react-router-dom';
+
 import useStyles from './styles';
 
 const Login = () => {
+  const history = useHistory();
   const classes = useStyles();
+
+  const handleLoginClick = () => {
+    history.push('/adoption-list');
+  };
 
   return (
     <>
@@ -44,6 +51,7 @@ const Login = () => {
           variant="contained"
           color="primary"
           className={classes.submit}
+          onClick={handleLoginClick}
         >
           ENTRAR
         </Button>

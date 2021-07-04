@@ -6,13 +6,10 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import DescriptionIcon from '@material-ui/icons/Description';
-import About from './About';
-import Reason from './Reason';
+// import About from './About';
+// import Reason from './Reason';
 
 import useStyles from './styles';
-
-import ManuBar from '../../layout/MenuBar';
 
 const steps = ['Sobre você', 'Detalhes'];
 
@@ -43,11 +40,10 @@ const ApplicationForm = () => {
   return (
     <>
       <CssBaseline />
-      <ManuBar pageName="Formulário de Aplicação" Icon={DescriptionIcon} />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Formulário de Adoção
+            Adicionar Pet
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
@@ -60,10 +56,10 @@ const ApplicationForm = () => {
             {activeStep === steps.length ? (
               <>
                 <Typography variant="h5" gutterBottom>
-                  Obrigado pela resposta.
+                  Pet cadastrado
                 </Typography>
                 <Typography variant="subtitle1">
-                  Seu formulário foi enviado com sucesso. Basta aguardar uma resposta por e-mail.
+                  Seu pet foi adicionado com sucesso.
                 </Typography>
               </>
             ) : (
@@ -77,6 +73,7 @@ const ApplicationForm = () => {
                   )}
                   <Button
                     variant="contained"
+                    color="primary"
                     onClick={handleNext}
                     className={classes.button}
                   >

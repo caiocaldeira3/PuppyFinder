@@ -2,6 +2,8 @@ import {
   makeStyles,
 } from '@material-ui/core';
 
+import COLORS from '../../styles/colors';
+
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
@@ -36,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
+    backgroundColor: COLORS.main,
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#998aff',
+      color: 'white',
+    },
   },
 }));
 
