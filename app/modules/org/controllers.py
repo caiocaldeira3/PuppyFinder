@@ -22,8 +22,8 @@ def list_orgs () -> str:
     return render_template("org/list-org.html", all_org=all_org)
 
 # Set the route and accepted methods
-@mod_org.route("/<org_id>/logged-in/",  methods=["GET", "POST"])
-def home (org_id: str) -> str:
+@mod_org.route("/<int:org_id>/logged-in/",  methods=["GET", "POST"])
+def home (org_id: int) -> str:
     if int(org_id) != session["org_id"]:
         return render_template("403.html")
 
@@ -37,16 +37,16 @@ def home (org_id: str) -> str:
     except NoResultFound:
 	    return render_template("500.html")
 
-@mod_org.route("/<org_id>/list-animals/",  methods=["GET", "POST"])
-def list_animal (org_id: str) -> str:
+@mod_org.route("/<int:org_id>/list-animals/",  methods=["GET", "POST"])
+def list_animal (org_id: int) -> str:
     if int(org_id) != session["org_id"]:
         return render_template("403.html")
 
     all_animal = Animal.query.all()
     return render_template("animals/list-animals.html", all_animal=all_animal) ##MUDAR
 
-@mod_org.route("/<org_id>/add-animal/", methods=["GET", "POST"])
-def add_animal (org_id: str) -> str:
+@mod_org.route("/<int:org_id>/add-animal/", methods=["GET", "POST"])
+def add_animal (org_id: int) -> str:
     if int(org_id) != session["org_id"]:
         return render_template("403.html")
 
@@ -80,8 +80,8 @@ def add_animal (org_id: str) -> str:
 
     return render_template("org/add-animal.html", form=form)
 
-@mod_org.route("/<org_id>/update-animal/<animal_id>/", methods=["GET", "POST"])
-def update_animal (org_id: str, animal_id: str) -> str:
+@mod_org.route("/<int:org_id>/update-animal/<int:animal_id>/", methods=["GET", "POST"])
+def update_animal (org_id: int, animal_id: int) -> str:
     if int(org_id) != session["org_id"]:
         return render_template("403.html")
 
@@ -133,8 +133,8 @@ def update_animal (org_id: str, animal_id: str) -> str:
     except NoResultFound:
         return render_template("500.html")
 
-@mod_org.route("/<org_id>/delete-animal/<animal_id>/", methods=["GET", "POST"])
-def delete_animal(org_id: str, animal_id: str):
+@mod_org.route("/<int:org_id>/delete-animal/<int:animal_id>/", methods=["POST"])
+def delete_animal(org_id: int, animal_id: int):
     if int(org_id) != session["org_id"]:
         return render_template("403.html")
 
