@@ -1,10 +1,13 @@
 # Import flask dependencies
-from flask import Blueprint, request, render_template, flash, session, redirect, url_for
+from flask import Blueprint, json, jsonify, Response, request, wrappers
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 
-# Import module forms
-from app.modules.org.forms import RegisterAnimalForm
+# Import Util Modules
+from app.util.json_encoder import AlchemyEncoder
+from app.util.responses import (
+    AuthorizationError, DeletedObject, DuplicateError, NotFoundError, ServerError
+)
 
 # Import module models (i.e. Organization)
 from app.models.org import Organization
@@ -16,135 +19,186 @@ from app import db
 # Define the blueprint: "org", set its url prefix: app.url/org
 mod_org = Blueprint("org", __name__, url_prefix="/org")
 
-@mod_org.route("/list-orgs/",  methods=["GET", "POST"])
-def list_orgs () -> str:
-    all_org = Organization.query.all()
-    return render_template("org/list-org.html", all_org=all_org)
+@mod_org.route("/",  methods=["GET"])
+def list_orgs () -> wrappers.Response:
+    try:
+        query = Organization.query.all()
+
+        return Response(
+            response=json.dumps(query, cls=AlchemyEncoder),
+            status=200,
+            mimetype="application/json"
+        )
+    except Exception:
+        return ServerError
 
 # Set the route and accepted methods
-@mod_org.route("/<int:org_id>/logged-in/",  methods=["GET", "POST"])
-def home (org_id: int) -> str:
-    if int(org_id) != session["org_id"]:
-        return render_template("403.html")
-
+@mod_org.route("/org-info/<int:org_id>/",  methods=["GET"])
+def org_info_id (org_id: int) -> wrappers.Response:
     try:
-        org = Organization.query.filter_by(id=org_id).one()
+        query = Organization.query.filter_by(id=org_id).one()
 
-        return render_template("org/login-sucessful.html", org=org)
-
+        return Response(
+            response=json.dumps(query, cls=AlchemyEncoder),
+            status=200,
+            mimetype="application/json"
+        )
     except MultipleResultsFound:
-        return render_template("500.html")
+        print("There was more than one org with such ID")
+        return ServerError
     except NoResultFound:
-	    return render_template("500.html")
+        print("There was no org with such ID")
+        return NotFoundError
+    except Exception:
+        return ServerError
 
-@mod_org.route("/<int:org_id>/list-animals/",  methods=["GET", "POST"])
+# Set the route and accepted methods
+@mod_org.route("/org-info/",  methods=["GET"])
+def org_info () -> wrappers.Response:
+    try:
+        data = request.json
+
+        query = Organization.query.filter_by(email=data["email"]).one()
+
+        return Response(
+            response=json.dumps(query, cls=AlchemyEncoder),
+            status=200,
+            mimetype="application/json"
+        )
+    except MultipleResultsFound:
+        print("There was more than one org with such e-mail")
+        return ServerError
+    except NoResultFound:
+        print("There was no org with such e-mail")
+        return NotFoundError
+    except Exception:
+        return ServerError
+
+@mod_org.route("/<int:org_id>/list-animals/",  methods=["GET"])
 def list_animal (org_id: int) -> str:
-    if int(org_id) != session["org_id"]:
-        return render_template("403.html")
-
-    all_animal = Animal.query.all()
-    return render_template("animals/list-animals.html", all_animal=all_animal) ##MUDAR
-
-@mod_org.route("/<int:org_id>/add-animal/", methods=["GET", "POST"])
-def add_animal (org_id: int) -> str:
-    if int(org_id) != session["org_id"]:
-        return render_template("403.html")
-
-    # If form is submitted
-    form = RegisterAnimalForm()
-    form.sex.choices = [gender.name for gender in AnimalGenders]
-    form.size.choices = [size.name for size in AnimalSizes]
-    print(form.size.choices)
-
-    # Verify the sign in form
-    if form.validate_on_submit():
-        stmt = db.insert(Animal).values(
-            name=form.name.data,
-            age=form.age.data,
-            sex=form.sex.data,
-            fur=form.fur.data,
-            size=form.size.data,
-            neutered=bool(form.neutered.data),
-            vaccinated=bool(form.vaccinated.data),
-            dewormed=bool(form.dewormed.data),
-            desc=form.desc.data
-        )
-        try:
-            with db.engine.connect() as connection:
-                result = connection.execute(stmt)
-                print(result)
-
-        except Exception as e:
-            flash("Algo deu errado no cadastro do Animal", "error")
-            print(e)
-
-    return render_template("org/add-animal.html", form=form)
-
-@mod_org.route("/<int:org_id>/update-animal/<int:animal_id>/", methods=["GET", "POST"])
-def update_animal (org_id: int, animal_id: int) -> str:
-    if int(org_id) != session["org_id"]:
-        return render_template("403.html")
-
-    form = RegisterAnimalForm()
-    form.sex.choices = [gender.name for gender in AnimalGenders]
-    form.size.choices = [size.name for size in AnimalSizes]
-
     try:
-        animal = Animal.query.filter_by(id=animal_id).one()
+        query = Animal.query.all()
 
-        # Verify the sign in form
-        if form.validate_on_submit():
-            animal.name = form.name.data
-            animal.age = form.age.data
-            animal.sex = form.sex.data
-            animal.fur = form.fur.data
-            animal.size = form.size.data
-            animal.desc = form.desc.data
-            animal.neutered = ("True" == form.neutered.data)
-            animal.vaccinated = ("True" == form.neutered.data)
-            animal.dewormed = ("True" == form.neutered.data)
+        return Response(
+            response=json.dumps(query, cls=AlchemyEncoder),
+            status=200,
+            mimetype="application/json"
+        )
+    except Exception:
+        return ServerError
 
-            db.session.commit()
-            #flash("Você mudou os dados de ", animal.name)
+@mod_org.route("/<int:org_id>/animal-info/<int:animal_id>", methods=["GET"])
+def animal_info_id (org_id: int, animal_id: int) -> wrappers.Response:
+    try:
+        query = Animal.query.filter_by(id=animal_id).one()
 
-            return redirect(url_for("org.list_animal"))
+        return Response(
+            response=json.dumps(query, cls=AlchemyEncoder),
+            status=200,
+            mimetype="application/json"
+        )
+    except MultipleResultsFound:
+        print("There was more than one org with such ID")
+        return ServerError
+    except NoResultFound:
+        print("There was no org with such ID")
+        return NotFoundError
+    except Exception:
+        return ServerError
 
-        elif request.method == 'GET':
-            form.name.data = animal.name
-            form.age.data = animal.age
+# Set the route and accepted methods
+@mod_org.route("/<int:org_id>/animal-info/",  methods=["GET"])
+def animal_info (org_id: int) -> wrappers.Response:
+    try:
+        data = request.json
+        if data.get("sex", None) is not None:
+            data["sex"] = AnimalGenders(data["sex"])
+        if data.get("size", None) is not None:
+            data["size"] = AnimalSizes(data["size"])
 
-            form.sex.data = animal.sex # TODO
+        query = Animal.query.filter_by(**data).all()
 
-            form.fur.data = animal.fur
-            form.size.data = animal.size  # TODO
+        return Response(
+            response=json.dumps(query, cls=AlchemyEncoder),
+            status=200,
+            mimetype="application/json"
+        )
+    except NoResultFound:
+        print("There was no org with such e-mail")
+        return NotFoundError
+    except Exception:
+        return ServerError
 
-            form.desc.data = animal.desc
+@mod_org.route("/<int:org_id>/add-animal/", methods=["POST"])
+def add_animal (org_id: int) -> str:
+    try:
+        data = request.json
 
-            form.neutered.data = animal.neutered # TODO
-            form.vaccinated.data = animal.vaccinated # TODO
-            form.dewormed.data = animal.dewormed # TODO
-
-        return render_template(
-            "org/update-animal.html", form=form, org_id=org_id, animal_id=animal_id
+        stmt = db.insert(Animal).values(
+            name=data["name"],
+            age=data.get("age", None),
+            sex=AnimalGenders(data["sex"]),
+            fur=data.get("fur", None),
+            size=AnimalSizes(data["size"]) if data.get("size", None) is not None else None,
+            neutered=bool(data["neutered"]),
+            vaccinated=bool(data["vaccinated"]),
+            dewormed=bool(data["dewormed"]),
+            desc=data.get("desc", None)
         )
 
+        with db.engine.connect() as connection:
+            result = connection.execute(stmt)
+            query = Animal.query.filter_by(id=result.lastrowid).one()
+
+            return Response(
+                response=json.dumps(query, cls=AlchemyEncoder),
+                status=200,
+                mimetype="application/json"
+            )
+    except IntegrityError:
+        return DuplicateError
+    except Exception:
+        return ServerError
+
+@mod_org.route("/<int:org_id>/update-animal/<int:animal_id>/", methods=["PUT"])
+def update_animal (org_id: int, animal_id: int) -> str:
+    try:
+        data = request.json
+        if data.get("sex", None) is not None:
+            data["sex"] = AnimalGenders(data["sex"])
+        if data.get("size", None) is not None:
+            data["size"] = AnimalSizes(data["size"])
+
+        stmt = db.update(Animal).where(Animal.id == animal_id).values(**data)
+
+        with db.engine.connect() as connection:
+            result = connection.execute(stmt)
+            query = Animal.query.filter_by(id=animal_id).one()
+
+            return Response(
+                response=json.dumps(query, cls=AlchemyEncoder),
+                status=200,
+                mimetype="application/json"
+            )
     except MultipleResultsFound:
-        return render_template("500.html")
+        return ServerError
     except NoResultFound:
-        return render_template("500.html")
+	    return NotFoundError
+    except Exception:
+        return ServerError
 
 @mod_org.route("/<int:org_id>/delete-animal/<int:animal_id>/", methods=["POST"])
 def delete_animal(org_id: int, animal_id: int):
-    if int(org_id) != session["org_id"]:
-        return render_template("403.html")
-
     try:
         animal = Animal.query.filter_by(id=animal_id).one()
 
         db.session.delete(animal)
         db.session.commit()
 
+        return DeletedObject
     except MultipleResultsFound:
-        return render_template("500.html")
+        print("There was more than one animal with such ID")
+        return ServerError
     except NoResultFound:
-	    return redirect(url_for("org.list_animals"))
+        print("There was no animal with such ID")
+        return NotModified
