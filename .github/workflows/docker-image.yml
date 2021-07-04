@@ -32,6 +32,7 @@ jobs:
         docker build . --file Dockerfile --tag ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/frontend:latest
         docker tag ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/frontend:latest ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/frontend:$(date +%s)
         docker push ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/frontend
+        cd ..
         
         
     - name: Azure Login for Deployment
@@ -45,7 +46,9 @@ jobs:
         # Name of the Azure Web App
         app-name: PuppyFinder
         # Applies to Web App Containers only: Specify the fully qualified container image(s) name. For example, 'myregistry.azurecr.io/nginx:latest' or 'python:3.7.2-alpine/'. For multi-container scenario multiple container image names can be provided (multi-line separated)
-        images: ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/backend:latest
+        images: 
+          ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/backend:latest
+          ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/frontend:latest
         # Applies to Web App Containers only: Path of the Docker-Compose file. Should be a fully qualified path or relative to the default working directory. Required for multi-container scenario
-        #configuration-file: # optional
+        configuration-file: docker-compose.yml
 
