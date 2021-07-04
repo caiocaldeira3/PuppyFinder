@@ -17,10 +17,10 @@ mod_anm = Blueprint("animals", __name__, url_prefix="/animals")
 @mod_anm.route("/",  methods=["GET"])
 def list_animals () -> wrappers.Response:
     try:
-        all_animals = [ json.dumps(animal, cls=AlchemyEncoder) for animal in Animal.query.all() ]
+        query = Animal.query.all()
 
         return Response(
-            response=all_animals,
+            response=json.dumps(query, cls=AlchemyEncoder),
             status=200,
             mimetype="application/json"
         )
@@ -30,10 +30,10 @@ def list_animals () -> wrappers.Response:
 @mod_anm.route("/<int:animal_id>/",  methods=["GET"])
 def animal_info (animal_id: int) -> wrappers.Response:
     try:
-        animal = Animal.query.filter_by(id=animal_id).one()
+        query = Animal.query.filter_by(id=animal_id).one()
 
         return Response(
-            response=json.dumps(animal, cls=AlchemyEncoder),
+            response=json.dumps(query, cls=AlchemyEncoder),
             status=200,
             mimetype="application/json"
         )

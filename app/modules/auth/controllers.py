@@ -29,8 +29,6 @@ def login_general (access: int) -> wrappers.Response:
         if user and user.access < access:
             return AuthorizationError
         elif user and check_password_hash(user.password, data["password"]):
-            session["user_id"] = user.id
-
             return Response(
                 response=json.dumps({
                     "user": user.id,
@@ -41,7 +39,6 @@ def login_general (access: int) -> wrappers.Response:
             )
         else:
             return AuthorizationError
-
     except MultipleResultsFound:
         return ServerError
     except NoResultFound:
@@ -58,7 +55,7 @@ def signin_user () -> wrappers.Response:
 def signin_admin () -> wrappers.Response:
     return login_general(access=1)
 
-@mod_auth.route("/signin-org/", methods=["GET", "POST"])
+@mod_auth.route("/signin-org/", methods=["GET"])
 def signin_org () -> wrappers.Response:
     try:
         data = request.json
@@ -66,8 +63,6 @@ def signin_org () -> wrappers.Response:
         org = Organization.query.filter_by(email=data["email"]).one()
 
         if org and check_password_hash(org.password, data["password"]):
-            session["org_id"] = org.id
-
             return Response(
                 response=json.dumps({
                     "org": org.id,
@@ -101,10 +96,10 @@ def signup_general (access: int) -> wrappers.Response:
 
         with db.engine.connect() as connection:
             result = connection.execute(stmt)
-            user = User.query.filter_by(email=data["email"]).one()
+            query = User.query.filter_by(id=result.lastrowid).one()
 
             return Response(
-                response=json.dumps(user, cls=AlchemyEncoder),
+                response=json.dumps(query, cls=AlchemyEncoder),
                 status=200,
                 mimetype="application/json"
             )
@@ -121,7 +116,7 @@ def signup_user () -> wrappers.Response:
 def signup_admin () -> wrappers.Response:
     return signup_general(access=1)
 
-@mod_auth.route("/signup-org/", methods=["GET", "POST"])
+@mod_auth.route("/signup-org/", methods=["POST"])
 def signup_org () -> wrappers.Response:
     try:
         data = request.json
@@ -138,10 +133,10 @@ def signup_org () -> wrappers.Response:
 
         with db.engine.connect() as connection:
             result = connection.execute(stmt)
-            org = Organization.query.filter_by(email=data["email"]).one()
+            query = Organization.query.filter_by(id=result.lastrowid).one()
 
             return Response(
-                response=json.dumps(org, cls=AlchemyEncoder),
+                response=json.dumps(query, cls=AlchemyEncoder),
                 status=200,
                 mimetype="application/json"
             )
