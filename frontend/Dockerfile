@@ -1,10 +1,11 @@
 FROM alpine:latest
 
 RUN apk update
-RUN apk add build-base npm 
+RUN apk add build-base npm git
 
+RUN git clone --recursive https://github.com/caiocaldeira3/PuppyFinder.git
 WORKDIR /PuppyFinder
-COPY . .
+#COPY . .
 
 WORKDIR puppyfinder 
 
