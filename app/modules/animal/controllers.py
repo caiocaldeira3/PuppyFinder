@@ -1,9 +1,9 @@
 # Import flask dependencies
 from flask import Blueprint, json, Response, request, wrappers
 
-# Import JsonEncoder
+# Import Util Modules
 from app.util.json_encoder import AlchemyEncoder
-from app.util.errors import NotFoundError, ServerError
+from app.util.responses import NotFoundError, ServerError
 
 # Import module models (i.e. Organization)
 from app.models.animal import Animal
@@ -14,7 +14,7 @@ from app import db
 # Define the blueprint: "org", set its url prefix: app.url/org
 mod_anm = Blueprint("animals", __name__, url_prefix="/animals")
 
-@mod_anm.route("/list-animals/",  methods=[ "GET" ])
+@mod_anm.route("/",  methods=["GET"])
 def list_animals () -> wrappers.Response:
     try:
         all_animals = [ json.dumps(animal, cls=AlchemyEncoder) for animal in Animal.query.all() ]
@@ -27,7 +27,7 @@ def list_animals () -> wrappers.Response:
     except Exception:
         return ServerError
 
-@mod_anm.route("/<int:animal_id>/",  methods=[ "GET" ])
+@mod_anm.route("/<int:animal_id>/",  methods=["GET"])
 def animal_info (animal_id: int) -> wrappers.Response:
     try:
         animal = Animal.query.filter_by(id=animal_id).one()
