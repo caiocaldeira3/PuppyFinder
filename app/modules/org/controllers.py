@@ -74,7 +74,7 @@ def org_info () -> wrappers.Response:
     except Exception:
         return ServerError
 
-@mod_org.route("/<int:org_id>/update-org/", methods=["PUT"])
+@mod_org.route("/update-org/<int:org_id>/", methods=["PUT"])
 def update_org (org_id: int) -> wrappers.Response:
     try:
         data = request.json
