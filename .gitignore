@@ -2,4 +2,3 @@
 db/puppyFinder.db*
 .env
 env/*
-migrations
