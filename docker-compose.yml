@@ -2,15 +2,13 @@ version: '3.7'
 
 services:
   backend:
-    image: backend
+    image: containeres.azurecr.io/backend
+    container_name: azure-puppyfinder-backend
     ports: 
       - "3001:8080"
-        #    command:
-        #"bash -c env/bin/python3 run.py"
 
   frontend:
-    image: frontend
+    image: containeres.azurecr.io/frontend
+    container_name: azure-puppyfinder-frontend
     ports:
       - "5001:3000"
-        #command:
-        #"bash -c npm start"
