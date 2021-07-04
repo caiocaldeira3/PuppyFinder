@@ -74,8 +74,31 @@ def org_info () -> wrappers.Response:
     except Exception:
         return ServerError
 
+@mod_org.route("/<int:org_id>/update-org/", methods=["PUT"])
+def update_org (org_id: int) -> wrappers.Response:
+    try:
+        data = request.json
+
+        stmt = db.update(Organization).where(Organization.id == org_id).values(**data)
+
+        with db.engine.connect() as connection:
+            result = connection.execute(stmt)
+            query = Organization.query.filter_by(id=org_id).one()
+
+            return Response(
+                response=json.dumps(query, cls=AlchemyEncoder),
+                status=200,
+                mimetype="application/json"
+            )
+    except MultipleResultsFound:
+        return ServerError
+    except NoResultFound:
+	    return NotFoundError
+    except Exception:
+        return ServerError
+
 @mod_org.route("/<int:org_id>/list-animals/",  methods=["GET"])
-def list_animal (org_id: int) -> str:
+def list_animal (org_id: int) -> wrappers.Response:
     try:
         query = Animal.query.all()
 
@@ -130,7 +153,7 @@ def animal_info (org_id: int) -> wrappers.Response:
         return ServerError
 
 @mod_org.route("/<int:org_id>/add-animal/", methods=["POST"])
-def add_animal (org_id: int) -> str:
+def add_animal (org_id: int) -> wrappers.Response:
     try:
         data = request.json
 
@@ -161,7 +184,7 @@ def add_animal (org_id: int) -> str:
         return ServerError
 
 @mod_org.route("/<int:org_id>/update-animal/<int:animal_id>/", methods=["PUT"])
-def update_animal (org_id: int, animal_id: int) -> str:
+def update_animal (org_id: int, animal_id: int) -> wrappers.Response:
     try:
         data = request.json
         if data.get("sex", None) is not None:
