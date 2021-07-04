@@ -11,3 +11,6 @@ WORKDIR /PuppyFinder
 RUN pip3 install -r requirements.build.txt
 RUN virtualenv env 
 RUN env/bin/pip3 install -r requirements.txt
+
+ENTRYPOINT [ "env/bin/python3" ]
+CMD [ "run.py" ]

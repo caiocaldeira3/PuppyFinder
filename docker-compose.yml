@@ -2,15 +2,15 @@ version: '3.7'
 
 services:
   backend:
-    image: puppyfinderbackend
+    image: backend
     ports: 
       - "3001:8080"
-    command:
-      "bash -c env/bin/python3 run.py"
+        #    command:
+        #"bash -c env/bin/python3 run.py"
 
   frontend:
-    image: puppyfinderfrontend
+    image: frontend
     ports:
-      - "5001:8080"
-        #    command:
-        #      "bash -c npm start"
+      - "5001:3000"
+        #command:
+        #"bash -c npm start"
