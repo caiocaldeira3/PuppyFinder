@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   AppBar,
   Container,
@@ -7,39 +7,53 @@ import {
 } from '@material-ui/core';
 
 import PropTypes from 'prop-types';
+import MenuIcon from '@material-ui/icons/Menu';
 
-import WarningIcon from '@material-ui/icons/Warning';
+import MenuDrawer from './menuDrawer';
 
 import useStyles from './styles';
 
-function MenuBar({ pageName, Icon }) {
+const MenuBar = ({ pageName }) => {
+  const [open, setOpen] = useState(false);
+
   const classes = useStyles();
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
-          <Icon className={classes.icon} />
-          <Typography variant="h6" color="inherit" noWrap>
-            {pageName}
-          </Typography>
+          <div>
+            <MenuIcon className={classes.icon} onClick={handleDrawerOpen} />
+          </div>
+          <div style={{ display: 'flex', marginLeft: 30 }}>
+            <Typography variant="h6" color="inherit" noWrap>
+              {pageName}
+            </Typography>
+          </div>
         </Toolbar>
       </AppBar>
+      <MenuDrawer handleDrawerClose={handleDrawerClose} open={open} />
       <div>
         <Container maxWidth="sm" className={classes.menuBarMainContainer} />
       </div>
     </>
   );
-}
+};
 
 MenuBar.propTypes = {
   pageName: PropTypes.string,
-  Icon: PropTypes.node,
 };
 
 MenuBar.defaultProps = {
   pageName: 'Pagina',
-  Icon: WarningIcon,
 };
 
 export default MenuBar;

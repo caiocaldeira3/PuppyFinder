@@ -6,7 +6,8 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import DescriptionIcon from '@material-ui/icons/Description';
+// import DescriptionIcon from '@material-ui/icons/Description';
+import { useHistory } from 'react-router-dom';
 import About from './About';
 import Reason from './Reason';
 
@@ -29,6 +30,7 @@ function getStepContent(step) {
 
 const ApplicationForm = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   const [activeStep, setActiveStep] = useState(0);
 
@@ -40,10 +42,14 @@ const ApplicationForm = () => {
     setActiveStep(activeStep - 1);
   };
 
+  const handleInitialPage = () => {
+    history.push('/adoption-list');
+  };
+
   return (
     <>
       <CssBaseline />
-      <ManuBar pageName="Formulário de Aplicação" Icon={DescriptionIcon} />
+      <ManuBar pageName="Formulário de Aplicação" />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -65,6 +71,15 @@ const ApplicationForm = () => {
                 <Typography variant="subtitle1">
                   Seu formulário foi enviado com sucesso. Basta aguardar uma resposta por e-mail.
                 </Typography>
+                <div className={classes.buttons}>
+                  <Button
+                    variant="contained"
+                    onClick={handleInitialPage}
+                    className={classes.button}
+                  >
+                    Retornar Página Inicial
+                  </Button>
+                </div>
               </>
             ) : (
               <>

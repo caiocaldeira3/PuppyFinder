@@ -15,7 +15,7 @@ import { useHistory } from 'react-router-dom';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PostAddSharpIcon from '@material-ui/icons/PostAddSharp';
 
-import ListAltIcon from '@material-ui/icons/ListAlt';
+// import ListAltIcon from '@material-ui/icons/ListAlt';
 
 import MenuBar from '../../layout/MenuBar';
 
@@ -45,7 +45,7 @@ const DogList = () => {
   return (
     <>
       <ApplicationModal visible={visible} onCloseModal={onCloseModal} />
-      <MenuBar pageName="Lista de Pets" Icon={ListAltIcon} />
+      <MenuBar pageName="Lista de Pets" />
       <Container>
         <Grid container spacing={4}>
           { fakeDataAdoptionList.map((item) => (
