@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  backend:
+    image: containeres.azurecr.io/backend
+    container_name: azure-puppyfinder-backend
+    ports: 
+      - "3001:8080"
+
+  frontend:
+    image: containeres.azurecr.io/frontend
+    container_name: azure-puppyfinder-frontend
+    ports:
+      - "5001:3000"
