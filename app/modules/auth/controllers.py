@@ -1,12 +1,14 @@
 # Import flask dependencies
-from flask import Blueprint, request, render_template, flash, session, redirect, url_for
+from flask import Blueprint, json, Response, request, wrappers
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
+
+# Import Util Modules
+from app.util.json_encoder import AlchemyEncoder
+from app.util.responses import AuthorizationError, DuplicateError, NotFoundError, ServerError
 
 # Import password / encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
-
-# Import module forms
-from app.modules.auth.forms import LoginForm, RegisterForm, RegisterOrgForm
 
 # Import module models (i.e. User)
 from app.models.user import User
@@ -18,132 +20,127 @@ from app import db
 # Define the blueprint: "auth", set its url prefix: app.url/auth
 mod_auth = Blueprint("auth", __name__, url_prefix="/auth")
 
-def login_general (access: int, form_url: str, success_url: str) -> str:
-    # If sign in form is submitted
-    form = LoginForm(request.form)
+def login_general (access: int) -> wrappers.Response:
+    try:
+        data = request.json
 
-    # Verify the sign in form
-    if form.validate_on_submit():
-
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=data["email"]).one()
 
         if user and user.access < access:
-            flash("Usuário não possui acesso à esta página", "error")
-
-        elif user and check_password_hash(user.password, form.password.data):
-            session["user_id"] = user.id
-            flash(f"Bem Vindo {user.name}")
-
-            return redirect(url_for(success_url))
-
+            return AuthorizationError
+        elif user and check_password_hash(user.password, data["password"]):
+            return Response(
+                response=json.dumps({
+                    "user": user.id,
+                    "name": user.name
+                }),
+                status=200,
+                mimetype="application/json"
+            )
         else:
-            flash("Usuário ou senha inválidos", "error")
-
-    return render_template(form_url, form=form)
+            return AuthorizationError
+    except MultipleResultsFound:
+        return ServerError
+    except NoResultFound:
+	    return NotFoundError
+    except Exception:
+        return AuthorizationError
 
 # Set the route and accepted methods
-@mod_auth.route("/signin-user/", methods=["GET", "POST"])
-def signin_user () -> str:
-    return login_general(access=0, form_url="auth/signin-user.html", success_url="auth.home")
+@mod_auth.route("/signin-user/", methods=["GET"])
+def signin_user () -> wrappers.Response:
+    return login_general(access=0)
 
-@mod_auth.route("/signin-admin/", methods=["GET", "POST"])
-def signin_admin () -> str:
-    return login_general(access=1, form_url="auth/signin-admin.html", success_url="auth.home")
+@mod_auth.route("/signin-admin/", methods=["GET"])
+def signin_admin () -> wrappers.Response:
+    return login_general(access=1)
 
-@mod_auth.route("/signin-org/", methods=["GET", "POST"])
-def signin_org () -> str:
-    # If sign in form is submitted
-    form = LoginForm(request.form)
+@mod_auth.route("/signin-org/", methods=["GET"])
+def signin_org () -> wrappers.Response:
+    try:
+        data = request.json
 
-    # Verify the sign in form
-    if form.validate_on_submit():
+        org = Organization.query.filter_by(email=data["email"]).one()
 
-        org = Organization.query.filter_by(email=form.email.data).first()
-
-        if org and check_password_hash(org.password, form.password.data):
-            session["org_id"] = org.id
-            flash(f"Bem Vindo {org.name}")
-
-            return redirect(url_for("auth.home"))
-
+        if org and check_password_hash(org.password, data["password"]):
+            return Response(
+                response=json.dumps({
+                    "org": org.id,
+                    "name": org.name
+                }),
+                status=200,
+                mimetype="application/json"
+            )
         else:
-            flash("Usuário ou senha inválidos", "error")
+            return AuthorizationError
 
-    return render_template("auth/signin-org.html", form=form)
+    except MultipleResultsFound:
+        return ServerError
+    except NoResultFound:
+	    return NotFoundError
+    except Exception:
+        return AuthorizationError
 
-def signup_general (access: int, form_url: str, success_url: str) -> str:
-    # If sign up form is submitted
-    form = RegisterForm(request.form)
+def signup_general (access: int) -> wrappers.Response:
+    try:
+        data = request.json
 
-    # Verify the sign up form
-    if form.validate_on_submit():
         stmt = db.insert(User).values(
-            email=form.email.data,
-            name=form.name.data,
-            password=generate_password_hash(form.password.data),
+            email=data["email"],
+            name=data["name"],
+            password=generate_password_hash(data["password"]),
             access=access,
-            telephone=form.telephone.data,
-            description=form.description.data
+            telephone=data.get("telephone", None),
+            description=data.get("description", None)
         )
 
-        try:
-            with db.engine.connect() as connection:
-                result = connection.execute(stmt)
-                print(result)
+        with db.engine.connect() as connection:
+            result = connection.execute(stmt)
+            query = User.query.filter_by(id=result.lastrowid).one()
 
-        except IntegrityError:
-            flash("E-mail de usuário já cadastrado", "error")
+            return Response(
+                response=json.dumps(query, cls=AlchemyEncoder),
+                status=200,
+                mimetype="application/json"
+            )
+    except IntegrityError:
+        return DuplicateError
+    except Exception:
+        return ServerError
 
-        except Exception:
-            flash("Algo deu errado no cadastro do usuário", "error")
+@mod_auth.route("/signup-user/", methods=["POST"])
+def signup_user () -> wrappers.Response:
+    return signup_general(access=0)
 
-        else:
-            return redirect(url_for(success_url))
+@mod_auth.route("/signup-admin/", methods=["POST"])
+def signup_admin () -> wrappers.Response:
+    return signup_general(access=1)
 
-    return render_template(form_url, form=form)
+@mod_auth.route("/signup-org/", methods=["POST"])
+def signup_org () -> wrappers.Response:
+    try:
+        data = request.json
 
-@mod_auth.route("/signup-user/", methods=["GET", "POST"])
-def signup_user () -> str:
-    return signup_general(access=0, form_url="auth/signup-user.html", success_url="auth.home")
-
-@mod_auth.route("/signup-admin/", methods=["GET", "POST"])
-def signup_admin () -> str:
-    return signup_general(access=1, form_url="auth/signup-user.html", success_url="auth.home")
-
-@mod_auth.route("/signup-org/", methods=["GET", "POST"])
-def signup_org () -> str:
-    # If sign up form is submitted
-    form = RegisterOrgForm(request.form)
-
-    # Verify the sign in form
-    if form.validate_on_submit():
         stmt = db.insert(Organization).values(
-            email=form.email.data,
-            name=form.name.data,
-            password=generate_password_hash(form.password.data),
-            website=form.website.data,
-            donation_url=form.donation_url.data,
-            telephone=form.telephone.data,
-            description=form.description.data
+            email=data["email"],
+            name=data["name"],
+            password=generate_password_hash(data["password"]),
+            website=data.get("website", None),
+            donation_url=data.get("donation_url", None),
+            telephone=data.get("telephone", None),
+            description=data.get("description", None)
         )
 
-        try:
-            with db.engine.connect() as connection:
-                result = connection.execute(stmt)
-                print(result)
+        with db.engine.connect() as connection:
+            result = connection.execute(stmt)
+            query = Organization.query.filter_by(id=result.lastrowid).one()
 
-        except IntegrityError:
-            flash("E-mail de Organização já cadastrado", "error")
-
-        except Exception as e:
-            flash("Algo deu errado no cadastro da Organização", "error")
-            print(e)
-
-        else:
-            return redirect(url_for("auth.home"))
-
-    return render_template("auth/signup-org.html", form=form)
-
-@mod_auth.route("/logged-in/",  methods=["GET", "POST"])
-def home () -> str:
-    return render_template("auth/login-sucessful.html")
+            return Response(
+                response=json.dumps(query, cls=AlchemyEncoder),
+                status=200,
+                mimetype="application/json"
+            )
+    except IntegrityError:
+        return DuplicateError
+    except Exception:
+        return ServerError

@@ -38,7 +38,7 @@ class Animal (db.Model):
 
     # Animal Description
 
-    desc            : db.Text = db.Column(db.Text(500), nullable=True)
+    description            : db.Text = db.Column(db.Text(500), nullable=True)
     # org_ownder      : db.Integer = db.Column(db.Integer, db.ForeignKey("auth_org"), nullable=False)
 
     def __repr__ (self) -> str:

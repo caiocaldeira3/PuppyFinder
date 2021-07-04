@@ -1,0 +1,684 @@
+{
+	"info": {
+		"_postman_id": "dcbd3f7e-cd41-456c-9f55-94402b094c3b",
+		"name": "PuppyFinder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Animal",
+			"item": [
+				{
+					"name": "get-animal",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.25.4:8080/animals/1/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"animals",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list-animals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.25.4:8080/animals/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"animals",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login-user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"caio_caldeira@gmail.com\",\n    \"password\": \"asdasd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/auth/signin-user",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signin-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login-admin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"caiocaldeira@gmail.com\",\n    \"password\": \"asdasd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/auth/signin-admin",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signin-admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login-org",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ggg@gmail.com\",\n    \"password\": \"asdasd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/auth/signin-org",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signin-org"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"caio_caldeira@gmail.com\",\n    \"name\": \"Caiao\",\n    \"password\": \"asdasd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/auth/signup-user/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signup-user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup-admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aaa@gmail.com\",\n    \"name\": \"caio\",\n    \"password\": \"asdasd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/auth/signup-admin/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signup-admin",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup-org",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ggg@gmail.com\",\n    \"name\": \"ggg\",\n    \"password\": \"asdasd\",\n    \"website\": \"urbanrescueranch.com\",\n    \"donation_url\": \"urbanrescueranch.com/donate\",\n    \"telephone\": \"31999911111\",\n    \"description\": \"Helloo sussy amongus\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/auth/signup-org/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"signup-org",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Organization",
+			"item": [
+				{
+					"name": "list-orgs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.25.4:8080/org/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"org",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "org-info-id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/org/org-info/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"org",
+								"org-info",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "org-info-query",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ggg@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/org/org-info",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"org",
+								"org-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list-animals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.25.4:8080/org/2/list-animals/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"org",
+								"2",
+								"list-animals",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-animal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pucca\",\n    \"age\": 8,\n    \"sex\": \"Fêmea\",\n    \"neutered\": true,\n    \"vaccinated\": true,\n    \"dewormed\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/org/2/add-animal/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"org",
+								"2",
+								"add-animal",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "animal-info-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.25.4:8080/org/1/animal-info/2",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"org",
+								"1",
+								"animal-info",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "animal-info-query",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pucca\",\n    \"age\": 15\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/org/1/animal-info/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"org",
+								"1",
+								"animal-info",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-animal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.25.4:8080/org/1/delete-animal/2/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"org",
+								"1",
+								"delete-animal",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-animal",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pucca Maior\",\n    \"age\": 15,\n    \"description\": \"Que cachorra Fedida!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/org/1/update-animal/1/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"org",
+								"1",
+								"update-animal",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-org",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"Pica das galáxias\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/org/update-org/1/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"org",
+								"update-org",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "user-info-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.25.4:8080/user/user-info/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"user-info",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-info-query",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aaa@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/user/user-info/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"user-info",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"lindão\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.25.4:8080/user/update-user/4/",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"25",
+								"4"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"update-user",
+								"4",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
