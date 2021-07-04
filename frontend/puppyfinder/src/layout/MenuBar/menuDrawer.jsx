@@ -33,7 +33,7 @@ const MenuDrawer = ({ handleDrawerClose, open }) => {
     icon: <ListIcon />,
   }, {
     name: 'Perfil',
-    func: () => {},
+    func: () => history.push('/org-admin/1'),
     icon: <AccountBoxIcon />,
   }];
 

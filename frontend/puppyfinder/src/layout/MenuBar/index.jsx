@@ -13,7 +13,7 @@ import MenuDrawer from './menuDrawer';
 
 import useStyles from './styles';
 
-const MenuBar = ({ pageName }) => {
+const MenuBar = ({ pageName, showLogo }) => {
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
@@ -41,19 +41,24 @@ const MenuBar = ({ pageName }) => {
         </Toolbar>
       </AppBar>
       <MenuDrawer handleDrawerClose={handleDrawerClose} open={open} />
-      <div>
-        <Container maxWidth="sm" className={classes.menuBarMainContainer} />
-      </div>
+      { showLogo && (
+        <div>
+          <Container maxWidth="sm" className={classes.menuBarMainContainer} />
+        </div>
+
+      )}
     </>
   );
 };
 
 MenuBar.propTypes = {
   pageName: PropTypes.string,
+  showLogo: PropTypes.bool,
 };
 
 MenuBar.defaultProps = {
   pageName: 'Pagina',
+  showLogo: true,
 };
 
 export default MenuBar;
