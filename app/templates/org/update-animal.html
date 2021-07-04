@@ -33,7 +33,10 @@
     {% endfor %}
     </div>
     {% endif %}
-    <form method="POST" action="{{ url_for('org.update_animal', animal_id=animal_id)}}" accept-charset="UTF-8" role="form">
+    <form method="POST"
+      action="{{ url_for('org.update_animal', org_id=org_id, animal_id=animal_id)}}"
+      accept-charset="UTF-8" role="form"
+    >
         {{form.csrf_token}}
 
         {{ render_field(form.name)}}
@@ -41,9 +44,9 @@
         {{ render_field(form.sex)}}
         {{ render_field(form.fur)}}
         {{ render_field(form.size)}}
-        <p>Castrado {{ render_field(form.neutered) }}</p> 
-        <p>Vacinado {{ render_field(form.vaccinated) }}</p> 
-        <p>Vermifugado {{ render_field(form.dewormed) }}</p> 
+        <p>Castrado {{ render_field(form.neutered) }}</p>
+        <p>Vacinado {{ render_field(form.vaccinated) }}</p>
+        <p>Vermifugado {{ render_field(form.dewormed) }}</p>
         {{ render_field(form.desc)}}
       <button type="submit" name="submit">Editar Animal</button>
     </form>

@@ -31,12 +31,16 @@
 					<td>{{ animal.desc}}</td>
 					<td>
 						<button>
-							<a href="{{url_for('org.update_animal', animal_id=animal.id)}}">Editar</a>
+							<a href="{{url_for('org.update_animal', org_id=org_id, animal_id=animal.id)}}">
+								Editar
+							</a>
 						</button>
 					<td>
 					<td>
 						<button>
-							<a href="{{url_for('org.delete_animal', animal_id=animal.id)}}">Excluir</a>
+							<a href="{{url_for('org.delete_animal', org_id=org_id, animal_id=animal.id)}}">
+								Excluir
+							</a>
 						</button>
 					<td>
 
