@@ -7,15 +7,10 @@ import PropTypes from 'prop-types';
 
 import useStyles from './styles';
 
+import Api from '../../modules/api';
+
 const Signin = ({ type }) => {
-  const [signInForm, setSignInForm] = useState({
-    name: '',
-    email: '',
-    password: '',
-    phone: '',
-    representantName: '',
-    address: '',
-  });
+  const [signInForm, setSignInForm] = useState({});
 
   const classes = useStyles();
 
@@ -49,9 +44,17 @@ const Signin = ({ type }) => {
     setSignInForm(newForm);
   };
 
-  const onClickSignIn = (e) => {
-    e.preventDefault();
-    console.log(signInForm);
+  const signinFunction = async () => {
+    if (type === 'fis') {
+      const response = await Api.registerPerson(signInForm);
+      return response;
+    }
+    const response = await Api.registerOrg(signInForm);
+    return response;
+  };
+
+  const onClickSignIn = () => {
+    signinFunction();
   };
 
   return (

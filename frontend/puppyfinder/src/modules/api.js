@@ -11,11 +11,70 @@ async function getAnimalList() {
     const animalsList = await api.get('/animals/');
     return animalsList;
   } catch (error) {
-    console.error(error);
+    return Promise.reject(error);
+  }
+}
+
+async function registerAnimal(data) {
+  try {
+    const response = await api.post('path', data);
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+async function registerOrg(data) {
+  try {
+    const response = await api.post('path', data);
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+async function registerPerson(data) {
+  try {
+    const response = await api.post('path', data);
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+async function sendApplicationForm(data) {
+  try {
+    const response = await api.post('path', data);
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+async function loginPerson(data) {
+  try {
+    const response = await api.post('path', data);
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+async function loginOrg(data) {
+  try {
+    const response = await api.post('path', data);
+    return response;
+  } catch (error) {
     return Promise.reject(error);
   }
 }
 
 export default {
   getAnimalList,
+  registerAnimal,
+  registerOrg,
+  registerPerson,
+  sendApplicationForm,
+  loginPerson,
+  loginOrg,
 };

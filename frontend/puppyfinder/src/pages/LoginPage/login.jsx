@@ -10,20 +10,26 @@ import { useHistory } from 'react-router-dom';
 
 import useStyles from './styles';
 
+import Api from '../../modules/api';
+
 const Login = ({ type }) => {
-  const [loginForm, setLoginForm] = useState({
-    email: '',
-    password: '',
-  });
+  const [loginForm, setLoginForm] = useState({});
 
   const history = useHistory();
   const classes = useStyles();
 
-  const handleLoginClick = (e) => {
-    if (type === 'fis') console.log('Pessoa'); else console.log('Organização');
-    e.preventDefault();
-    console.log(loginForm);
-    history.push('/adoption-list');
+  const loginFunction = async () => {
+    if (type === 'fis') {
+      const response = await Api.loginPerson(loginForm);
+      return response;
+    }
+    const response = await Api.loginOrg(loginForm);
+    return response;
+  };
+
+  const handleLoginClick = () => {
+    const result = loginFunction();
+    if (result) { history.push('/adoption-list'); }
   };
 
   const handleEmailChange = (e) => {
