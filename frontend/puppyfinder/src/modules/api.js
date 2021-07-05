@@ -24,7 +24,7 @@ async function getAnimalInfoById(animalId) {
     const animalInfo = await api.get(`animals/animal-info/${animalId}/`);
     return animalInfo;
   } catch (error) {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 }
 
@@ -33,7 +33,7 @@ async function getAnimalInfoByQuery(animal) {
     const animalInfo = await api.get('animals/animal-info/', animal);
     return animalInfo;
   } catch (error) {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 }
 
@@ -93,7 +93,7 @@ async function registerOrg(data) {
 
 async function listOrgs() {
   try {
-    const orgList = await api.post('org/', data);
+    const orgList = await api.post('org/');
     return orgList;
   } catch (error) {
     return Promise.reject(error);
@@ -132,7 +132,7 @@ async function getOrgAnimalInfoById(orgId, animalId) {
     const animalInfo = await api.get(`org/${orgId}/animal-info/${animalId}/`);
     return animalInfo;
   } catch (error) {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 }
 
@@ -141,7 +141,7 @@ async function getOrgAnimalInfoByQuery(orgId, animal) {
     const animalInfo = await api.get(`org/${orgId}/animal-info/`, animal);
     return animalInfo;
   } catch (error) {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 }
 
@@ -168,7 +168,7 @@ async function deleteAnimalById(orgId, animalId) {
     const response = await api.get(`org/${orgId}/delete-animal/${animalId}/`);
     return response;
   } catch (error) {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 }
 
@@ -177,7 +177,7 @@ async function updateOrgById(orgId, org) {
     const orgInfo = await api.get(`org/update-org/${orgId}/`, org);
     return orgInfo;
   } catch (error) {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 }
 
@@ -204,7 +204,7 @@ async function updateUserById(userId, user) {
     const userInfo = await api.get(`user/update-user/${userId}/`, user);
     return userInfo;
   } catch (error) {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 }
 
@@ -233,7 +233,6 @@ export default {
   getAnimalListByOrg,
   getOrgAnimalInfoById,
   getOrgAnimalInfoByQuery,
-  getAnimalInfoById,
   registerAnimal,
   updateAnimalById,
   deleteAnimalById,
@@ -241,4 +240,5 @@ export default {
   getUserInfoById,
   getUserInfoByQuery,
   updateUserById,
+  sendApplicationForm,
 };
