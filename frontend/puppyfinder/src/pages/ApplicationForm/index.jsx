@@ -16,6 +16,8 @@ import Reason from './Reason';
 
 import useStyles from './styles';
 
+import Api from '../../modules/api';
+
 import ManuBar from '../../layout/MenuBar';
 
 const steps = ['Sobre você', 'Detalhes'];
@@ -38,9 +40,14 @@ const ApplicationForm = () => {
     }
   }
 
+  const sendApplicationFormToApi = async () => {
+    Api.sendApplicationForm(applicationForm);
+  };
+
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
       console.log(applicationForm);
+      sendApplicationFormToApi();
     } else {
       setActiveStep(activeStep + 1);
     }
