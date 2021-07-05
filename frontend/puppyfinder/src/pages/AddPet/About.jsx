@@ -40,8 +40,8 @@ const About = ({ form, setForm }) => {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="animalGenders"
-            name="animalGenders"
+            id="sex"
+            name="sex"
             label="Sexo"
             fullWidth
             onChange={handleFieldChange}
@@ -50,8 +50,8 @@ const About = ({ form, setForm }) => {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="animalHair"
-            name="animalHair"
+            id="fur"
+            name="fur"
             label="Pelagem"
             fullWidth
             onChange={handleFieldChange}
@@ -60,8 +60,8 @@ const About = ({ form, setForm }) => {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="animalSizes"
-            name="animalSizes"
+            id="size"
+            name="size"
             label="Porte"
             fullWidth
             onChange={handleFieldChange}

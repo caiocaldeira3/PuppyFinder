@@ -22,8 +22,8 @@ const Details = ({ form, setForm }) => {
         <Grid item xs={12} sm={6}>
           <TextField
             required
-            id="castrated"
-            name="castrated"
+            id="neutered"
+            name="neutered"
             label="Castrado?"
             fullWidth
             onChange={handleFieldChange}
@@ -39,11 +39,21 @@ const Details = ({ form, setForm }) => {
             onChange={handleFieldChange}
           />
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="vaccinated"
+            name="vaccinated"
+            label="Vacinado?"
+            fullWidth
+            onChange={handleFieldChange}
+          />
+        </Grid>
         <Grid item xs={12}>
           <TextField
             required
-            id="description"
-            name="description"
+            id="desc"
+            name="desc"
             label="Descrição"
             fullWidth
             onChange={handleFieldChange}

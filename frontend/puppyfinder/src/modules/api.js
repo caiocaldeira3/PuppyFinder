@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://192.168.1.105:8080',
+  baseURL: 'http://172.20.10.14:8080',
   withCredentials: false,
   headers: { 'Cache-Control': 'no-cache' },
 });
@@ -24,9 +24,9 @@ async function getAnimalListByOrg(org) {
   }
 }
 
-async function registerAnimal(data) {
+async function registerAnimal(orgId, data) {
   try {
-    const response = await api.post('path', data);
+    const response = await api.post(`/org/${orgId}/add-animal`, data);
     return response;
   } catch (error) {
     return Promise.reject(error);

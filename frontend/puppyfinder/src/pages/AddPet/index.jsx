@@ -38,7 +38,7 @@ const ApplicationForm = () => {
   }
 
   const saveAnimal = async () => {
-    await Api.registerAnimal(registerForm);
+    await Api.registerAnimal(1, registerForm);
   };
 
   const handleNext = () => {
