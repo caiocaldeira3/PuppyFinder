@@ -1,5 +1,6 @@
 # Import flask and template operators
 from flask import Flask, wrappers
+from flask_cors import CORS
 
 # Import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
@@ -12,6 +13,7 @@ from app.util.responses import NotFoundError
 
 # Define the WSGI application object
 app = Flask(__name__)
+CORS(app)
 
 # Configurations
 app.config.from_object('config')
