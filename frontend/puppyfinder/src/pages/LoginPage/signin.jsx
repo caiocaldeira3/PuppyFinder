@@ -53,7 +53,9 @@ const Signin = ({ type }) => {
     return response;
   };
 
-  const onClickSignIn = () => {
+  const onClickSignIn = (e) => {
+    e.preventDefault();
+    console.log(signInForm);
     signinFunction();
   };
 

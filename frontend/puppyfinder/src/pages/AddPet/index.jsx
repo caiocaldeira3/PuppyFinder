@@ -11,6 +11,8 @@ import {
 
 import MenuBar from '../../layout/MenuBar';
 
+import Api from '../../modules/api';
+
 import About from './About';
 import Details from './Details';
 
@@ -35,9 +37,14 @@ const ApplicationForm = () => {
     }
   }
 
+  const saveAnimal = async () => {
+    await Api.registerAnimal(registerForm);
+  };
+
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
       console.log(registerForm);
+      saveAnimal();
     } else {
       setActiveStep(activeStep + 1);
     }

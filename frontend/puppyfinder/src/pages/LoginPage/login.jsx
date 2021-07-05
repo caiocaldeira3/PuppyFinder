@@ -27,7 +27,9 @@ const Login = ({ type }) => {
     return response;
   };
 
-  const handleLoginClick = () => {
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    console.log(loginForm);
     const result = loginFunction();
     if (result) { history.push('/adoption-list'); }
   };
