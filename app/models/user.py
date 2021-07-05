@@ -12,5 +12,8 @@ class User (BaseAuth):
     telephone       : db.String = db.Column(db.String(15), nullable=True)
     description     : db.Text = db.Column(db.Text(500), nullable=True)
 
+    # Foreign Keys
+    applications    : any = db.relationship("Application", backref='animals', lazy='dynamic')
+
     def __repr__ (self) -> str:
         return f"<User > {self.name}"
