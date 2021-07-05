@@ -72,7 +72,7 @@ const OrgAdministrationPage = () => {
             onClick={listAnimals}
             startIcon={<FormatListNumberedIcon />}
           >
-            Ver Animais
+            Ver Animais Cadastrados
           </Button>
         </div>
       </Container>
