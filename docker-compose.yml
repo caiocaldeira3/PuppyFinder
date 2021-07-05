@@ -5,7 +5,7 @@ services:
     image: containeres.azurecr.io/backend
     container_name: azure-puppyfinder-backend
     ports: 
-      - "3000:8080"
+      - "3001:8080"
 
   frontend:
     image: containeres.azurecr.io/frontend
