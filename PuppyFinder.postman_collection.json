@@ -9,7 +9,7 @@
 			"name": "Animal",
 			"item": [
 				{
-					"name": "get-animal",
+					"name": "animal-info-id",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -51,6 +51,28 @@
 								"animals",
 								""
 							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "animal-info-query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list-applications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
 						}
 					},
 					"response": []
@@ -674,6 +696,44 @@
 								"4",
 								""
 							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list-applications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "apply-application",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Applications",
+			"item": [
+				{
+					"name": "list-applications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
 						}
 					},
 					"response": []

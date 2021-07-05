@@ -31,15 +31,17 @@ def not_found (error: Exception) -> wrappers.Response:
 # Import a module / component using its blueprint handler variable (mod_auth)
 
 from app.modules.animal.controllers import mod_anm as anm_module
+from app.modules.applications.controllers import mod_apply as apply_module
 from app.modules.auth.controllers import mod_auth as auth_module
 from app.modules.org.controllers import mod_org as org_module
 from app.modules.user.controllers import mod_user as user_module
 
 
 # Register blueprint(s)
+app.register_blueprint(anm_module)
+app.register_blueprint(apply_module)
 app.register_blueprint(auth_module)
 app.register_blueprint(org_module)
-app.register_blueprint(anm_module)
 app.register_blueprint(user_module)
 # app.register_blueprint(xyz_module)
 # ..

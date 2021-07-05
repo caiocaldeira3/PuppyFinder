@@ -7,6 +7,7 @@ from app.util.responses import NotFoundError, ServerError
 
 # Import module models (i.e. Organization)
 from app.models.animal import Animal
+from app.models.applications import Application
 
 # Import application Database
 from app import db
@@ -16,16 +17,16 @@ mod_anm = Blueprint("animals", __name__, url_prefix="/animals")
 
 @mod_anm.route("/",  methods=["GET"])
 def list_animals () -> wrappers.Response:
-    try:
-        query = Animal.query.all()
+    # try:
+    query = Animal.query.all()
 
-        return Response(
-            response=json.dumps(query, cls=AlchemyEncoder),
-            status=200,
-            mimetype="application/json"
-        )
-    except Exception:
-        return ServerError
+    return Response(
+        response=json.dumps(query, cls=AlchemyEncoder),
+        status=200,
+        mimetype="application/json"
+    )
+    # except Exception:
+    #     return ServerError
 
 @mod_anm.route("/animal-info/<int:animal_id>/", methods=["GET"])
 def animal_info_id (animal_id: int) -> wrappers.Response:
@@ -66,5 +67,18 @@ def animal_info () -> wrappers.Response:
     except NoResultFound:
         print("There was no org with such e-mail")
         return NotFoundError
+    except Exception:
+        return ServerError
+
+@mod_anm.route("/<int:animal_id>/applications/",  methods=["GET"])
+def list_applications (animal_id: int) -> wrappers.Response:
+    try:
+        query = Application.query.filter_by(animal_id=animal_id).all()
+
+        return Response(
+            response=json.dumps(query, cls=AlchemyEncoder),
+            status=200,
+            mimetype="application/json"
+        )
     except Exception:
         return ServerError
