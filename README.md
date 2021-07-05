@@ -99,4 +99,4 @@ Backlog da Sprint:
   - Integrar testes com GitHub Actions.
   - Criar workflow para permitir a integração de um pull request apenas se os testes passarem corretamente.
 
-
+![image](https://user-images.githubusercontent.com/32149276/124508356-46b9b600-ddbf-11eb-838c-0d8a385778cd.png)
