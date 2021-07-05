@@ -37,9 +37,18 @@ async function getAnimalInfoByQuery(animal) {
   }
 }
 
+async function getAnimalApplications(animalId) {
+  try {
+    const applicationsList = await api.get(`animals/${animalId}/applications/`);
+    return applicationsList;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
 async function loginUser(data) {
   try {
-    const response = await api.post('auth/signin-user/', data);
+    const response = await api.get('auth/signin-user/', data);
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -48,7 +57,7 @@ async function loginUser(data) {
 
 async function loginAdmin(data) {
   try {
-    const response = await api.post('auth/signin-admin/', data);
+    const response = await api.get('auth/signin-admin/', data);
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -57,7 +66,7 @@ async function loginAdmin(data) {
 
 async function loginOrg(data) {
   try {
-    const response = await api.post('auth/signin-org/', data);
+    const response = await api.get('auth/signin-org/', data);
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -93,7 +102,7 @@ async function registerOrg(data) {
 
 async function listOrgs() {
   try {
-    const orgList = await api.post('org/');
+    const orgList = await api.get('org/');
     return orgList;
   } catch (error) {
     return Promise.reject(error);
@@ -102,7 +111,7 @@ async function listOrgs() {
 
 async function getOrgInfoById(orgId) {
   try {
-    const orgInfo = await api.post(`org/org-info/${orgId}/`);
+    const orgInfo = await api.get(`org/org-info/${orgId}/`);
     return orgInfo;
   } catch (error) {
     return Promise.reject(error);
@@ -111,7 +120,7 @@ async function getOrgInfoById(orgId) {
 
 async function getOrgInfoByQuery(org) {
   try {
-    const orgInfo = await api.post('org/org-info/', org);
+    const orgInfo = await api.get('org/org-info/', org);
     return orgInfo;
   } catch (error) {
     return Promise.reject(error);
@@ -156,7 +165,7 @@ async function registerAnimal(orgId, data) {
 
 async function updateAnimalById(orgId, animalId, animal) {
   try {
-    const animalInfo = await api.get(`org/${orgId}/update-animal/${animalId}/`, animal);
+    const animalInfo = await api.put(`org/${orgId}/update-animal/${animalId}/`, animal);
     return animalInfo;
   } catch (error) {
     return Promise.reject(error);
@@ -165,7 +174,7 @@ async function updateAnimalById(orgId, animalId, animal) {
 
 async function deleteAnimalById(orgId, animalId) {
   try {
-    const response = await api.get(`org/${orgId}/delete-animal/${animalId}/`);
+    const response = await api.post(`org/${orgId}/delete-animal/${animalId}/`);
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -174,7 +183,7 @@ async function deleteAnimalById(orgId, animalId) {
 
 async function updateOrgById(orgId, org) {
   try {
-    const orgInfo = await api.get(`org/update-org/${orgId}/`, org);
+    const orgInfo = await api.put(`org/update-org/${orgId}/`, org);
     return orgInfo;
   } catch (error) {
     return Promise.reject(error);
@@ -183,7 +192,7 @@ async function updateOrgById(orgId, org) {
 
 async function getUserInfoById(userId) {
   try {
-    const userInfo = await api.post(`user/user-info/${userId}/`);
+    const userInfo = await api.get(`user/user-info/${userId}/`);
     return userInfo;
   } catch (error) {
     return Promise.reject(error);
@@ -192,7 +201,7 @@ async function getUserInfoById(userId) {
 
 async function getUserInfoByQuery(user) {
   try {
-    const userInfo = await api.post('user/user-info/', user);
+    const userInfo = await api.get('user/user-info/', user);
     return userInfo;
   } catch (error) {
     return Promise.reject(error);
@@ -201,16 +210,34 @@ async function getUserInfoByQuery(user) {
 
 async function updateUserById(userId, user) {
   try {
-    const userInfo = await api.get(`user/update-user/${userId}/`, user);
+    const userInfo = await api.put(`user/update-user/${userId}/`, user);
     return userInfo;
   } catch (error) {
     return Promise.reject(error);
   }
 }
 
-async function sendApplicationForm(data) {
+async function getUserApplications(userId) {
   try {
-    const response = await api.post('path', data);
+    const applicationsList = await api.get(`user/${userId}/applications/`);
+    return applicationsList;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+async function sendApplicationForm(userId, animalId) {
+  try {
+    const response = await api.put(`user/${userId}/applications/apply/${animalId}/`);
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+async function listAllApplications() {
+  try {
+    const response = await api.get('applications/');
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -221,6 +248,7 @@ export default {
   getAnimalList,
   getAnimalInfoById,
   getAnimalInfoByQuery,
+  getAnimalApplications,
   loginUser,
   loginAdmin,
   loginOrg,
@@ -240,5 +268,7 @@ export default {
   getUserInfoById,
   getUserInfoByQuery,
   updateUserById,
+  getUserApplications,
   sendApplicationForm,
+  listAllApplications,
 };
