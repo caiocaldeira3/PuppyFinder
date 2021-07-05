@@ -27,8 +27,8 @@ def list_animals () -> wrappers.Response:
     except Exception:
         return ServerError
 
-@mod_anm.route("/<int:animal_id>/",  methods=["GET"])
-def animal_info (animal_id: int) -> wrappers.Response:
+@mod_anm.route("/animal-info/<int:animal_id>/", methods=["GET"])
+def animal_info_id (animal_id: int) -> wrappers.Response:
     try:
         query = Animal.query.filter_by(id=animal_id).one()
 
@@ -38,8 +38,33 @@ def animal_info (animal_id: int) -> wrappers.Response:
             mimetype="application/json"
         )
     except MultipleResultsFound:
-        print("There was more than one animal with such ID")
+        print("There was more than one org with such ID")
         return ServerError
     except NoResultFound:
-        print("There was no animal with such ID")
+        print("There was no org with such ID")
         return NotFoundError
+    except Exception:
+        return ServerError
+
+# Set the route and accepted methods
+@mod_anm.route("/animal-info/",  methods=["GET"])
+def animal_info () -> wrappers.Response:
+    try:
+        data = request.json
+        if data.get("sex", None) is not None:
+            data["sex"] = AnimalGenders(data["sex"])
+        if data.get("size", None) is not None:
+            data["size"] = AnimalSizes(data["size"])
+
+        query = Animal.query.filter_by(**data).all()
+
+        return Response(
+            response=json.dumps(query, cls=AlchemyEncoder),
+            status=200,
+            mimetype="application/json"
+        )
+    except NoResultFound:
+        print("There was no org with such e-mail")
+        return NotFoundError
+    except Exception:
+        return ServerError

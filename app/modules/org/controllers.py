@@ -110,7 +110,7 @@ def list_animal (org_id: int) -> wrappers.Response:
     except Exception:
         return ServerError
 
-@mod_org.route("/<int:org_id>/animal-info/<int:animal_id>", methods=["GET"])
+@mod_org.route("/<int:org_id>/animal-info/<int:animal_id>/", methods=["GET"])
 def animal_info_id (org_id: int, animal_id: int) -> wrappers.Response:
     try:
         query = Animal.query.filter_by(id=animal_id).one()
