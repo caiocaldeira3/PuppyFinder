@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Grid,
@@ -14,6 +14,7 @@ import { useHistory } from 'react-router-dom';
 
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PostAddSharpIcon from '@material-ui/icons/PostAddSharp';
+import Api from '../../modules/api';
 
 // import ListAltIcon from '@material-ui/icons/ListAlt';
 
@@ -41,6 +42,19 @@ const DogList = () => {
   const onCloseModal = () => {
     setVisible(false);
   };
+
+  const getAnimalsFromDb = async () => {
+    try {
+      const animals = await Api.getAnimalList();
+      console.log(animals);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getAnimalsFromDb();
+  });
 
   return (
     <>
