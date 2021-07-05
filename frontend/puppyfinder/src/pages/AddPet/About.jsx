@@ -2,6 +2,10 @@ import React from 'react';
 import {
   Grid,
   TextField,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormLabel,
 } from '@material-ui/core';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
@@ -37,15 +41,15 @@ const About = ({ form, setForm }) => {
             onChange={handleFieldChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="sex"
-            name="sex"
-            label="Sexo"
-            fullWidth
-            onChange={handleFieldChange}
-          />
+        <Grid item xs={12} sm={12}>
+          <FormLabel component="legend">Gênero</FormLabel>
+          <RadioGroup label="gender" name="gender" onChange={handleFieldChange}>
+            <div style={{ dislay: 'flex', flexDirection: 'row' }}>
+              <FormControlLabel value="female" control={<Radio />} label="Fêmea" />
+              <FormControlLabel value="male" control={<Radio />} label="Macho" />
+              <FormControlLabel value="undefined" control={<Radio />} label="Indeterminado" />
+            </div>
+          </RadioGroup>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField

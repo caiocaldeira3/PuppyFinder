@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import {
   TextField,
   Button,
+  Snackbar,
+  // Alert,
 } from '@material-ui/core';
+
 import PropTypes from 'prop-types';
 
 import useStyles from './styles';
@@ -11,8 +14,17 @@ import Api from '../../modules/api';
 
 const Signin = ({ type }) => {
   const [signInForm, setSignInForm] = useState({});
+  const [open, setOpen] = useState(false);
 
   const classes = useStyles();
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const handleNameChange = (e) => {
     const newForm = { ...signInForm, name: e.target.value };
@@ -30,17 +42,12 @@ const Signin = ({ type }) => {
   };
 
   const handleTelefoneChange = (e) => {
-    const newForm = { ...signInForm, phone: e.target.value };
+    const newForm = { ...signInForm, telephone: e.target.value };
     setSignInForm(newForm);
   };
 
-  const handleNomeRepChange = (e) => {
-    const newForm = { ...signInForm, representantName: e.target.value };
-    setSignInForm(newForm);
-  };
-
-  const handleEnderecoChange = (e) => {
-    const newForm = { ...signInForm, address: e.target.value };
+  const handleWebsiteChange = (e) => {
+    const newForm = { ...signInForm, website: e.target.value };
     setSignInForm(newForm);
   };
 
@@ -53,14 +60,20 @@ const Signin = ({ type }) => {
     return response;
   };
 
-  const onClickSignIn = (e) => {
-    e.preventDefault();
+  const onClickSignIn = () => {
+    // e.preventDefault();
     console.log(signInForm);
+    setOpen(true);
     signinFunction();
   };
 
   return (
     <>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        {/* <Alert onClose={handleClose} severity="success"> */}
+        <h3>Cadastrado com sucesso</h3>
+        {/* </Alert> */}
+      </Snackbar>
       <form className={classes.form} noValidate>
         <TextField
           variant="outlined"
@@ -101,19 +114,6 @@ const Signin = ({ type }) => {
           className={classes.input}
           onChange={handleSenhaChange}
         />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="phone"
-          placeholder="Telefone"
-          name="phone"
-          autoComplete="phone"
-          autoFocus
-          className={classes.input}
-          onChange={handleTelefoneChange}
-        />
         { type === 'org'
           ? (
             <>
@@ -122,26 +122,25 @@ const Signin = ({ type }) => {
                 margin="normal"
                 required
                 fullWidth
-                name="representant"
-                placeholder="Nome do Representante"
-                type="representant"
-                id="representant"
-                autoComplete="current-password"
+                id="telephone"
+                placeholder="Telefone"
+                name="telephone"
+                autoComplete="phone"
+                autoFocus
                 className={classes.input}
-                onChange={handleNomeRepChange}
+                onChange={handleTelefoneChange}
               />
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="address"
-                placeholder="Endereço Físico"
-                name="address"
-                autoComplete="address"
-                autoFocus
+                name="website"
+                placeholder="Website"
+                type="representant"
+                id="website"
                 className={classes.input}
-                onChange={handleEnderecoChange}
+                onChange={handleWebsiteChange}
               />
             </>
           ) : null}

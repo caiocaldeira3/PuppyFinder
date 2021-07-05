@@ -47,6 +47,7 @@ const DogList = () => {
   const getAnimalsFromDb = async () => {
     try {
       const animals = await Api.getAnimalList();
+      console.log(animals.data);
       setAnimalsToAdopt(animals.data);
     } catch (error) {
       console.error(error);

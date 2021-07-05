@@ -20,17 +20,18 @@ const Login = ({ type }) => {
 
   const loginFunction = async () => {
     if (type === 'fis') {
-      const response = await Api.loginPerson(loginForm);
+      const response = await Api.loginUser(loginForm);
       return response;
     }
     const response = await Api.loginOrg(loginForm);
     return response;
   };
 
-  const handleLoginClick = (e) => {
+  const handleLoginClick = async (e) => {
     e.preventDefault();
     console.log(loginForm);
-    const result = loginFunction();
+    const result = await loginFunction();
+    console.log(result);
     if (result) { history.push('/adoption-list'); }
   };
 
@@ -55,7 +56,6 @@ const Login = ({ type }) => {
           id="email"
           placeholder="Endereço de email"
           name="email"
-          autoComplete="email"
           autoFocus
           className={classes.input}
           onChange={handleEmailChange}
