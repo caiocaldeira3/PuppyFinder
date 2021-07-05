@@ -53,7 +53,7 @@ def org_info_id (org_id: int) -> wrappers.Response:
         return ServerError
 
 # Set the route and accepted methods
-@mod_org.route("/org-info/",  methods=["GET"])
+@mod_org.route("/org-info/",  methods=["PUT"])
 def org_info () -> wrappers.Response:
     try:
         data = request.json
@@ -130,7 +130,7 @@ def animal_info_id (org_id: int, animal_id: int) -> wrappers.Response:
         return ServerError
 
 # Set the route and accepted methods
-@mod_org.route("/<int:org_id>/animal-info/",  methods=["GET"])
+@mod_org.route("/<int:org_id>/animal-info/",  methods=["PUT"])
 def animal_info (org_id: int) -> wrappers.Response:
     try:
         data = request.json

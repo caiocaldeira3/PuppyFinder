@@ -30,7 +30,7 @@ async function getAnimalInfoById(animalId) {
 
 async function getAnimalInfoByQuery(animal) {
   try {
-    const animalInfo = await api.get('animals/animal-info/', animal);
+    const animalInfo = await api.put('animals/animal-info/', animal);
     return animalInfo;
   } catch (error) {
     return Promise.reject(error);
@@ -48,7 +48,7 @@ async function getAnimalApplications(animalId) {
 
 async function loginUser(data) {
   try {
-    const response = await api.get('auth/signin-user/', data);
+    const response = await api.put('auth/signin-user/', data);
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -57,7 +57,7 @@ async function loginUser(data) {
 
 async function loginAdmin(data) {
   try {
-    const response = await api.get('auth/signin-admin/', data);
+    const response = await api.put('auth/signin-admin/', data);
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -66,7 +66,7 @@ async function loginAdmin(data) {
 
 async function loginOrg(data) {
   try {
-    const response = await api.get('auth/signin-org/', data);
+    const response = await api.put('auth/signin-org/', data);
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -120,7 +120,7 @@ async function getOrgInfoById(orgId) {
 
 async function getOrgInfoByQuery(org) {
   try {
-    const orgInfo = await api.get('org/org-info/', org);
+    const orgInfo = await api.put('org/org-info/', org);
     return orgInfo;
   } catch (error) {
     return Promise.reject(error);
@@ -147,7 +147,7 @@ async function getOrgAnimalInfoById(orgId, animalId) {
 
 async function getOrgAnimalInfoByQuery(orgId, animal) {
   try {
-    const animalInfo = await api.get(`org/${orgId}/animal-info/`, animal);
+    const animalInfo = await api.put(`org/${orgId}/animal-info/`, animal);
     return animalInfo;
   } catch (error) {
     return Promise.reject(error);
@@ -201,7 +201,7 @@ async function getUserInfoById(userId) {
 
 async function getUserInfoByQuery(user) {
   try {
-    const userInfo = await api.get('user/user-info/', user);
+    const userInfo = await api.put('user/user-info/', user);
     return userInfo;
   } catch (error) {
     return Promise.reject(error);

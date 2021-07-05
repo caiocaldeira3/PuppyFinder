@@ -6,6 +6,8 @@ import {
   RadioGroup,
   FormControlLabel,
   FormLabel,
+  Select,
+  MenuItem,
 } from '@material-ui/core';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
@@ -62,14 +64,19 @@ const About = ({ form, setForm }) => {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
+          <FormLabel component="legend">Tamanho</FormLabel>
+          <Select
+            labelId="size"
             id="size"
             name="size"
-            label="Porte"
-            fullWidth
             onChange={handleFieldChange}
-          />
+          >
+            <MenuItem value="tiny">Minúsculo</MenuItem>
+            <MenuItem value="small">Pequeno</MenuItem>
+            <MenuItem value="medium">Médio</MenuItem>
+            <MenuItem value="large">Grande</MenuItem>
+            <MenuItem value="extra-large">Extra Grande</MenuItem>
+          </Select>
         </Grid>
       </Grid>
     </>

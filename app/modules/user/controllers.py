@@ -39,7 +39,7 @@ def user_info_id (user_id: int) -> wrappers.Response:
         return ServerError
 
 # Set the route and accepted methods
-@mod_user.route("/user-info/",  methods=["GET"])
+@mod_user.route("/user-info/",  methods=["PUT"])
 def user_info () -> wrappers.Response:
     try:
         data = request.json

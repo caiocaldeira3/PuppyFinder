@@ -41,10 +41,10 @@ const ApplicationForm = () => {
     await Api.registerAnimal(1, registerForm);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activeStep === steps.length - 1) {
       console.log(registerForm);
-      saveAnimal();
+      await saveAnimal();
     } else {
       setActiveStep(activeStep + 1);
     }

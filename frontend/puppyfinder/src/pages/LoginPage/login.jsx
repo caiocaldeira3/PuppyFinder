@@ -29,10 +29,10 @@ const Login = ({ type }) => {
 
   const handleLoginClick = async (e) => {
     e.preventDefault();
-    console.log(loginForm);
+    // console.log(loginForm);
     const result = await loginFunction();
-    console.log(result);
-    if (result) { history.push('/adoption-list'); }
+    // console.log(result);
+    if (result.status === 200) { history.push('/adoption-list'); }
   };
 
   const handleEmailChange = (e) => {

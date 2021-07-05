@@ -48,7 +48,7 @@ def animal_info_id (animal_id: int) -> wrappers.Response:
         return ServerError
 
 # Set the route and accepted methods
-@mod_anm.route("/animal-info/",  methods=["GET"])
+@mod_anm.route("/animal-info/",  methods=["PUT"])
 def animal_info () -> wrappers.Response:
     try:
         data = request.json
