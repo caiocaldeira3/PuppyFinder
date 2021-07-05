@@ -11,17 +11,43 @@ import {
 
 import MenuBar from '../../layout/MenuBar';
 
+import Api from '../../modules/api';
+
+import About from './About';
+import Details from './Details';
+
 import useStyles from './styles';
 
-const steps = ['Sobre você', 'Detalhes'];
+const steps = ['Sobre', 'Detalhes'];
 
 const ApplicationForm = () => {
   const classes = useStyles();
 
+  const [registerForm, setRegisterForm] = useState({});
   const [activeStep, setActiveStep] = useState(0);
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <About form={registerForm} setForm={setRegisterForm} />;
+      case 1:
+        return <Details form={registerForm} setForm={setRegisterForm} />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
+
+  const saveAnimal = async () => {
+    await Api.registerAnimal(1, registerForm);
+  };
+
+  const handleNext = async () => {
+    if (activeStep === steps.length - 1) {
+      console.log(registerForm);
+      await saveAnimal();
+    } else {
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => {
@@ -56,7 +82,7 @@ const ApplicationForm = () => {
               </>
             ) : (
               <>
-                {/* {getStepContent(activeStep)} */}
+                {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
@@ -69,7 +95,7 @@ const ApplicationForm = () => {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Enviar Aplicação' : 'Próximo'}
+                    {activeStep === steps.length - 1 ? 'Cadastrar' : 'Próximo'}
                   </Button>
                 </div>
               </>

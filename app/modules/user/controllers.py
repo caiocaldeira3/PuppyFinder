@@ -9,6 +9,7 @@ from app.util.responses import (
 )
 
 # Import module models (i.e. Organization)
+from app.models.applications import Application
 from app.models.user import User
 
 # Import application Database
@@ -38,7 +39,7 @@ def user_info_id (user_id: int) -> wrappers.Response:
         return ServerError
 
 # Set the route and accepted methods
-@mod_user.route("/user-info/",  methods=["GET"])
+@mod_user.route("/user-info/",  methods=["PUT"])
 def user_info () -> wrappers.Response:
     try:
         data = request.json
@@ -75,6 +76,44 @@ def update_user (user_id: int) -> wrappers.Response:
                 status=200,
                 mimetype="application/json"
             )
+    except MultipleResultsFound:
+        return ServerError
+    except NoResultFound:
+	    return NotFoundError
+    except Exception:
+        return ServerError
+
+@mod_user.route("/<int:user_id>/applications/",  methods=["GET"])
+def list_applications (user_id: int) -> wrappers.Response:
+    try:
+        query = Application.query.filter_by(user_id=user_id).all()
+
+        return Response(
+            response=json.dumps(query, cls=AlchemyEncoder),
+            status=200,
+            mimetype="application/json"
+        )
+    except Exception:
+        return ServerError
+
+@mod_user.route("/<int:user_id>/applications/apply/<int:animal_id>/", methods=["PUT"])
+def apply_interest (user_id: int, animal_id: int) -> wrappers.Response:
+    try:
+        stmt = db.insert(Application).values(
+            user_id=user_id,
+            animal_id=animal_id
+        )
+
+        with db.engine.connect() as connection:
+            result = connection.execute(stmt)
+            query = Application.query.filter_by(id=result.lastrowid).one()
+
+            return Response(
+                response=json.dumps(query, cls=AlchemyEncoder),
+                status=200,
+                mimetype="application/json"
+            )
+
     except MultipleResultsFound:
         return ServerError
     except NoResultFound:

@@ -47,17 +47,17 @@ def login_general (access: int) -> wrappers.Response:
         return AuthorizationError
 
 # Set the route and accepted methods
-@mod_auth.route("/signin-user/", methods=["GET"])
+@mod_auth.route("/signin-user/", methods=["PUT"])
 def signin_user () -> wrappers.Response:
     return login_general(access=0)
 
-@mod_auth.route("/signin-admin/", methods=["GET"])
+@mod_auth.route("/signin-admin/", methods=["PUT"])
 def signin_admin () -> wrappers.Response:
     return login_general(access=1)
 
-@mod_auth.route("/signin-org/", methods=["GET"])
+@mod_auth.route("/signin-org/", methods=["PUT"])
 def signin_org () -> wrappers.Response:
-    try:
+    # try:
         data = request.json
 
         org = Organization.query.filter_by(email=data["email"]).one()
@@ -74,12 +74,12 @@ def signin_org () -> wrappers.Response:
         else:
             return AuthorizationError
 
-    except MultipleResultsFound:
-        return ServerError
-    except NoResultFound:
-	    return NotFoundError
-    except Exception:
-        return AuthorizationError
+    # except MultipleResultsFound:
+    #     # return ServerError
+    # except NoResultFound:
+	#     return NotFoundError
+    # except Exception:
+    #     return AuthorizationError
 
 def signup_general (access: int) -> wrappers.Response:
     try:

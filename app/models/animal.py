@@ -39,7 +39,10 @@ class Animal (db.Model):
     # Animal Description
 
     description            : db.Text = db.Column(db.Text(500), nullable=True)
-    # org_ownder      : db.Integer = db.Column(db.Integer, db.ForeignKey("auth_org"), nullable=False)
+
+    # Foreign Keys
+    # org_owner      : db.Integer = db.Column(db.Integer, db.ForeignKey("auth_org"), nullable=False)
+    applications    : any = db.relationship("Application", backref='auth_user', lazy='dynamic')
 
     def __repr__ (self) -> str:
         return f"<Animal {self.name}>"

@@ -10,20 +10,29 @@ import { useHistory } from 'react-router-dom';
 
 import useStyles from './styles';
 
+import Api from '../../modules/api';
+
 const Login = ({ type }) => {
-  const [loginForm, setLoginForm] = useState({
-    email: '',
-    senha: '',
-    type: '',
-  });
+  const [loginForm, setLoginForm] = useState({});
 
   const history = useHistory();
   const classes = useStyles();
 
-  const handleLoginClick = () => {
-    const newForm = { ...loginForm, type };
-    setLoginForm(newForm);
-    history.push('/adoption-list');
+  const loginFunction = async () => {
+    if (type === 'fis') {
+      const response = await Api.loginUser(loginForm);
+      return response;
+    }
+    const response = await Api.loginOrg(loginForm);
+    return response;
+  };
+
+  const handleLoginClick = async (e) => {
+    e.preventDefault();
+    // console.log(loginForm);
+    const result = await loginFunction();
+    // console.log(result);
+    if (result.status === 200) { history.push('/adoption-list'); }
   };
 
   const handleEmailChange = (e) => {
@@ -32,7 +41,7 @@ const Login = ({ type }) => {
   };
 
   const handlePasswordChange = (e) => {
-    const newForm = { ...loginForm, senha: e.target.value };
+    const newForm = { ...loginForm, password: e.target.value };
     setLoginForm(newForm);
   };
 
@@ -47,7 +56,6 @@ const Login = ({ type }) => {
           id="email"
           placeholder="Endereço de email"
           name="email"
-          autoComplete="email"
           autoFocus
           className={classes.input}
           onChange={handleEmailChange}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Grid,
@@ -25,8 +25,11 @@ import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import useStyles from './styles';
 import fakeProfileData from './fakeData';
 import MenuBar from '../../layout/MenuBar';
+import AnimalListModal from './animalListModal';
 
 const OrgAdministrationPage = () => {
+  const [open, setOpen] = useState(false);
+
   const classes = useStyles();
 
   const history = useHistory();
@@ -41,6 +44,14 @@ const OrgAdministrationPage = () => {
 
   const handleAddPet = () => {
     history.push('/add-pet');
+  };
+
+  const listAnimals = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -58,12 +69,14 @@ const OrgAdministrationPage = () => {
           </Button>
           <Button
             className={classes.button}
+            onClick={listAnimals}
             startIcon={<FormatListNumberedIcon />}
           >
-            Ver Animais
+            Ver Animais Cadastrados
           </Button>
         </div>
       </Container>
+      <AnimalListModal open={open} handleClose={handleClose} />
       <Container className={classes.detailsContainer}>
         <Grid container spacing={4}>
           { Object.keys(fakeProfileData).map((item) => (
