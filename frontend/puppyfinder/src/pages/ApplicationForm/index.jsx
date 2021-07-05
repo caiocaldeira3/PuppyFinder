@@ -20,25 +20,30 @@ import ManuBar from '../../layout/MenuBar';
 
 const steps = ['Sobre você', 'Detalhes'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <About />;
-    case 1:
-      return <Reason />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
-
 const ApplicationForm = () => {
   const classes = useStyles();
   const history = useHistory();
 
   const [activeStep, setActiveStep] = useState(0);
+  const [applicationForm, setApplicationForm] = useState({});
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <About form={applicationForm} setForm={setApplicationForm} />;
+      case 1:
+        return <Reason form={applicationForm} setForm={setApplicationForm} />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if (activeStep === steps.length - 1) {
+      console.log(applicationForm);
+    } else {
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => {
