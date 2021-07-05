@@ -53,7 +53,7 @@ const Signin = ({ type }) => {
 
   const signinFunction = async () => {
     if (type === 'fis') {
-      const response = await Api.registerPerson(signInForm);
+      const response = await Api.registerUser(signInForm);
       return response;
     }
     const response = await Api.registerOrg(signInForm);
